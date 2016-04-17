@@ -3,4 +3,4 @@ Name: consoleroutes
 ---
 Director:
   rules:
-    'super': 'ConsoleController'
+    'console': 'ConsoleController'

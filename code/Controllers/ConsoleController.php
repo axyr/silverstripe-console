@@ -6,7 +6,6 @@ use Symfony\Component\Console\Input\ArgvInput;
 /**
  * Class ConsoleController
  * The Central Command Access Point and Bootstrapper
-
  */
 class ConsoleController extends Controller
 {
@@ -14,47 +13,46 @@ class ConsoleController extends Controller
      * @var array
      */
     private static $allowed_actions = array(
-        'index'
+        'publish'
     );
 
+    public function publish()
+    {
+        if (Director::is_cli()) {
+            $this->writesupersakefile();
+            $this->writehtaccess();
+            $this->writewebconfig();
+        }
+    }
+
+    protected function writesupersakefile()
+    {
+        file_put_contents(
+            BASE_PATH . '/supersake',
+            file_get_contents(BASE_PATH . '/console/publish/supersake')
+        );
+    }
+
     /**
-     * @var Symfony\Component\Console\Application
+     * protect the supersake file with htaccess
      */
-    protected $application;
-
-    public function init()
+    protected function writehtaccess()
     {
-        parent::init();
-        if (!Director::is_cli()) {
-            $this->httpError(404);
-        }
+        $content = "# Deny access to supersake
+<Files supersake>
+	Order allow,deny
+	Deny from all
+</Files>";
 
-        $this->application = new Application();
-
-        $this->loadCommands();
     }
 
-    public function index()
+    /**
+     * protect the supersake file with web.config
+     */
+    public function writewebconfig()
     {
-        // remove the framework/cli-script.php argument
-        array_shift($_SERVER['argv']);
-        return $this->application->run(new ArgvInput($_SERVER['argv']));
+        //<add fileExtension="supersake" allowed="false"/>
     }
 
-    public function loadCommands()
-    {
-        //somehow this does not work.
-        //$commands = ClassInfo::subclassesFor('SilverstripeCommand');
-        //var_dump($commands);exit();
 
-        // and this is will not load other classes
-        $commands = ClassInfo::classes_for_folder(BASE_PATH . '/console/');
-
-        /** @var SilverstripeCommand $command */
-        foreach ($commands as $command) {
-            if (is_subclass_of($command, 'SilverstripeCommand')) {
-                $this->application->add(new $command());
-            }
-        }
-    }
 }

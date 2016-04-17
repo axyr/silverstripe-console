@@ -1,6 +1,6 @@
 {
     "name": "axyr/silverstripe-console",
-    "description": "Generate PHP DocBlock annotations for DataObject and DataExtension databasefields and relation methods",
+    "description": "The missing Silverstripe console : supersake",
     "type": "silverstripe-module",
     "keywords": [
         "sake",
