@@ -5,6 +5,8 @@
 
 # Very unstable and incomplete module.....
 
+# DO NOT USES THIS ON A LIVE ENVIRONMENT !!!
+
 This will likely not work as it should be... Hang on... 
 
 Interact with your Silverstripe application from the command line with supersake.
