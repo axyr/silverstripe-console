@@ -16,20 +16,25 @@ class DefaultCommand extends ListCommand
     {
         parent::execute($input, $output);
 
-        $msg = $this->checkProtection();
-        if((bool)$msg) {
-            $output->writeln("\n");
-            $output->writeln('<error>'.$msg.'</error>');
-        }
+        $this->addProtectionWarningToOutput($output);
     }
 
     /**
      * @return bool|string
      */
-    public function checkProtection()
+    public function addProtectionWarningToOutput(OutputInterface $output)
     {
         $checker =  new SuperSakeChecker();
-        return $checker->superSakeIsNotProtected();
+        if((bool)$checker->superSakeIsNotProtected()) {
+            $output->writeln("\n");
+            $output->writeln('<error>The supersake file is accessible by browsers</error>');
+            $output->writeln('<error>Please lock down the file by either : </error>');
+            $output->writeln('<comment>Adding this to your .htaccess file</comment>');
+            $output->writeln($checker->htaccessContent());
+            $output->writeln('<comment>Or add this to the <fileExtensions allowUnlisted="true"> section of your web.config file if you are running on iis</comment>');
+            $output->writeln($checker->webconfigContent());
+            $output->writeln("\n");
+        }
     }
 
 }

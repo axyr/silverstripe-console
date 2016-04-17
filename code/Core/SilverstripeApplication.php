@@ -1,8 +1,10 @@
 <?php
 
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Application as SymfonyApplication;
 use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
@@ -26,7 +28,7 @@ class SilverstripeApplication extends SymfonyApplication
         parent::__construct();
 
         $this->loadCommands();
-        
+
         $this->add($default = new DefaultCommand());
         $this->setDefaultCommand($default->getName());
 
@@ -34,7 +36,7 @@ class SilverstripeApplication extends SymfonyApplication
         $this->setCatchExceptions(false);
     }
 
-    public function run($input = null, $output = null)
+    public function run(InputInterface $input = null, OutputInterface $output = null)
     {
         return parent::run($input, $output);
     }

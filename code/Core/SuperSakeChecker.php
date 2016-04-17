@@ -10,46 +10,62 @@ class SuperSakeChecker
      * From the command line we don't know on what server software we are running,
      * so we just checking if a .htaccess or web.config exists and has the protection lines in it.
      *
+     * If one of the files has access to the file denied, we consider this protected
+     *
      * @return bool|string
      */
     public function superSakeIsNotProtected()
     {
-        $file = BASE_PATH . '/.htaccess';
-        if(is_file($file)) {
-            return $this->checkHtAccessProtection($file);
-        }
+        $htaccess  = $this->hasHtAccessProtection(BASE_PATH . '/.htaccess');
+        $webConfig = $this->hasWebConfigProtection(BASE_PATH . '/web.config');
 
-        $file = BASE_PATH . '/web.config';
-        if(is_file($file)) {
-            return $this->checkWebConfigProtection($file);
-        }
-
-        return '';
+        // nothing is done, add the instructions
+        return !$htaccess && !$webConfig;
     }
 
     /**
      * @param string $file
      * @return bool|string
      */
-    protected function checkHtAccessProtection($file)
+    protected function hasHtAccessProtection($file)
     {
-        if(!is_file($file) || strpos(file_get_contents($file), '<Files supersake>') !== false) {
-            return 'supersake is not protected in .htaccess';
-        }
-
-        return false;
+        return is_file($file) &&
+               strpos(file_get_contents($file), '<Files supersake>') !== false;
     }
 
     /**
      * @param string $file
      * @return bool|string
      */
-    protected function checkWebConfigProtection($file)
+    protected function hasWebConfigProtection($file)
     {
-        if(!is_file($file) || strpos(file_get_contents($file), '<add fileExtension="supersake" allowed="false"/>') !== false) {
-            return 'supersake is not protected in web.config';
-        }
-
-        return false;
+        return is_file($file) &&
+               strpos(file_get_contents($file), '<add fileExtension="supersake" allowed="false"/>') !== false;
     }
+
+    public function htaccessContent()
+    {
+        $content = <<<'EOF'
+
+# Deny access to supersake
+<Files supersake>
+    Order allow,deny
+    Deny from all
+</Files>
+
+EOF
+;
+            return $content;
+    }
+
+    public function webconfigContent()
+    {
+        $content = <<<'EOF'
+<add fileExtension="supersake" allowed="false"/>
+EOF
+        ;
+        return $content;
+    }
+
+
 }
