@@ -9,6 +9,9 @@ This will likely not work as it should be... Hang on...
 
 Interact with your Silverstripe application from the command line with supersake.
 
+![Screenshot](https://raw.github.com/axyr/silverstripe-console/master/images/screenshot.png)
+
+
 ## Summary
 
 Create DataObjects, Pages and more from predefined or custom stubs with:
@@ -22,8 +25,6 @@ List DataObjects, Controllers, Config and more in a nice table style list with:
 ```
 $ php supersake list:controller
 ```
-
-Create or block members by email or send a Password reset link
 
 ## Quick start
 
