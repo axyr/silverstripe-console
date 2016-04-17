@@ -13,6 +13,43 @@ Interact with your Silverstripe application from the command line with supersake
 
 ![Screenshot](https://raw.githubusercontent.com/axyr/silverstripe-console/master/images/console.png)
 
+## Installation
+
+### composer install
+```
+$ composer require axyr/silverstripe-console
+```
+
+Run this from within your webroot:
+```
+$ php framework/cli-script.php dev/build
+$ cp ./console/publish/supersake supersake
+```
+
+Now protect the supersake file
+
+### update .htaccess
+```
+# Deny access to supersake
+<Files supersake>
+	Order allow,deny
+	Deny from all
+</Files>
+```
+### update web.config
+```
+<fileExtensions allowUnlisted="true" >
+    ...
+    <add fileExtension="supersake" allowed="false"/>
+    ...
+</fileExtensions>
+```
+
+You should now be able to show a list of available commands with :
+
+```
+$ php supersake
+```
 
 ## Summary
 
