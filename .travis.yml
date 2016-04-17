@@ -11,8 +11,8 @@ matrix:
   allow_failures:
     - php: 7.0
 script:
-- framework/cli-script.php dev/build
-- framework/cli-script.php console/publish
+- php framework/cli-script.php dev/build
+- php framework/cli-script.php console/publish
 - vendor/bin/phpunit console/tests/
 env:
   matrix:
