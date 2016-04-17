@@ -1,0 +1,21 @@
+<?php
+
+/**
+ * Class DummyClass
+ */
+class DummyClass extends Page
+{
+
+}
+
+/**
+ * Class DummyClass_Controller
+ */
+class DummyClass_Controller extends Page_Controller
+{
+    public function init()
+    {
+        parent::init();
+    }
+
+}

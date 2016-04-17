@@ -1,0 +1,91 @@
+<?php
+
+/**
+ * Class DummyClass
+ */
+class DummyClass extends Form
+{
+    /**
+     * @var ContentController
+     */
+    protected $controller;
+
+    /**
+     * @param Controller $controller
+     * @param string $name
+     */
+    public function __construct(Controller $controller, $name)
+    {
+        $this->controller = $controller;
+
+        $fields = $this->getCustomFields();
+        $actions = $this->getCustomActions();
+
+        $validator        = $this->getCustomValidator($fields);
+
+        parent::__construct($controller, $name, $fields, $actions, $validator);
+    }
+
+    /**
+     * @param $data
+     * @param DummyClass $form
+     * @param SS_HTTPRequest $request
+     */
+    public function submitForm($data, DummyClass $form, SS_HTTPRequest $request)
+    {
+
+        return $this->controller->redirect($this->controller->Link('thanks'));
+    }
+
+    /**
+     * @return FieldList
+     */
+    public function getCustomFields()
+    {
+        $fields = new FieldList();
+
+        return $fields;
+    }
+
+    /**
+     * @return FieldList
+     */
+    public function getCustomActions()
+    {
+        $fields = new FieldList(
+            new FormAction('submitForm', _t('Site.Submit', 'Submit'))
+        );
+
+        return $fields;
+    }
+
+    public function getCustomValidator(FieldList $fields)
+    {
+        $required = [];
+
+        $this->setRequiredFieldsLabels($required, $fields);
+
+        return RequiredFields::create($required);
+    }
+
+    /**
+     * Add required stars to field labels
+     *
+     * @param array $required
+     * @param FieldList $fields
+     */
+    protected function setRequiredFieldsLabels($required, FieldList $fields)
+    {
+        foreach ((array)$required as $req) {
+            $field = $fields->dataFieldByName($req);
+            if ($field && $title = trim($field->Title())) {
+                if (!$field->getCustomValidationMessage()) {
+                    $message = strip_tags($title) . ' ' . _t('Site.IsRequired', ' is required');
+                    $field->setCustomValidationMessage($message);
+                }
+                $field->setTitle($title . ' *');
+            }
+        }
+    }
+
+}

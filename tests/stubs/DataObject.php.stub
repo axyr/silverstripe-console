@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Class DummyDataObject
+ */
+class DummyDataObject extends DataObject
+{
+    /**
+     * @var array
+     */
+    private static $db = array();
+
+    /**
+     * @var array
+     */
+    private static $has_one = array();
+
+    public function getCMSFields()
+    {
+        $fields = parent::getCMSFields();
+
+
+
+        return $fields;
+    }
+}

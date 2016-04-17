@@ -1,0 +1,19 @@
+<?php
+
+/**
+ * Class DummyClass
+ */
+class DummyClass extends Extension
+{
+    private static $allowed_actions = null;
+
+    public function onBeforeInit()
+    {
+
+    }
+
+    public function onAfterInit()
+    {
+
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "name": "axyr/silverstripe-console",
+    "description": "Generate PHP DocBlock annotations for DataObject and DataExtension databasefields and relation methods",
+    "type": "silverstripe-module",
+    "keywords": [
+        "sake",
+        "console",
+        "commands",
+        "silverstripe",
+        "code generators",
+        "command line interface"
+    ],
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Martijn van Nieuwenhoven",
+            "email": "info@axyrmedia.nl"
+        }
+    ],
+    "require": {
+        "silverstripe/framework": ">=3.1.0",
+        "silverstripe/cms": ">=3.1.0",
+        "symfony/console": ">=3.0.0"
+    },
+    "require-dev": {
+        "phpunit/PHPUnit": "~3.7@stable"
+    },
+    "extra": {
+        "installer-name": "console"
+    },
+    "target-dir": "console"
+}

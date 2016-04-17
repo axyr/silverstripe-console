@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * Class DummyClass
+ */
+class DummyClass extends Controller
+{
+    private static $allowed_actions = array();
+
+    public function init()
+    {
+        parent::init();
+    }
+
+}
