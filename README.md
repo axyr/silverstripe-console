@@ -1,7 +1,7 @@
 # silverstripe-console (supersake)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/axyr/silverstripe-console.svg)](https://scrutinizer-ci.com/g/axyr/silverstripe-console/)
 [![Travis](https://img.shields.io/travis/axyr/silverstripe-console.svg)](https://travis-ci.org/axyr/silverstripe-console)
-![Packagist](https://img.shields.io/badge/unstable-dev--master-orange.svg)
+[![Packagist](https://img.shields.io/badge/unstable-dev--master-orange.svg)](https://packagist.org/packages/axyr/silverstripe-console)
 
 # Very unstable and incomplete module.....
 
