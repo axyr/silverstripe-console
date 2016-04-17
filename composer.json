@@ -28,11 +28,5 @@
     "extra": {
         "installer-name": "console"
     },
-    "target-dir": "console",
-    "scripts": {
-        "post-create-project-cmd": [
-            "php framework/cli-script.php dev/build flush=all",
-            "php framework/cli-script.php console/publish"
-        ]
-    }
+    "target-dir": "console"
 }
