@@ -27,30 +27,9 @@ class ListRouteCommand extends SilverstripeCommand
 
         foreach($routes as $route => $controller) {
 
-            $actions = (array)Config::inst()->get($controller, 'allowed_actions', Config::UNINHERITED);
+            $handlers = $this->getUrlHandlersForController($controller);
 
-            $handlers = (array)Config::inst()->get($controller, 'url_handlers', Config::UNINHERITED);
-
-            if(!isset($actions[0])) { // assoc with permissions set as values
-                $actions = array_keys($actions);
-            }
-
-            if(!isset($handlers[0])) { // assoc with permissions set as values
-                $handlers = array_keys($handlers);
-            }
-
-            foreach ($actions as $key => $action) {
-                if($action == 'index') unset($actions[$key]);
-            }
-
-            foreach ($handlers as $key => $handler) {
-                if($handler == '') unset($handlers[$key]);
-            }
-
-            if($handlers) {
-                $actions = $handlers;
-            }
-
+            $actions  = $handlers ? $handlers : $this->getActionsForController($controller);
 
             $list[$route] = array($route, $controller, implode("\n", $actions));
         }
@@ -58,5 +37,51 @@ class ListRouteCommand extends SilverstripeCommand
         ksort($list);
 
         return $list;
+    }
+
+    /**
+     * @param string $controller
+     * @return array
+     */
+    protected function getActionsForController($controller)
+    {
+        $actions = $this->getValuesOrKeysFromConfig($controller, 'allowed_actions');
+
+        foreach ($actions as $key => $action) {
+            if($action == 'index') unset($actions[$key]);
+        }
+
+        return $actions;
+    }
+
+    /**
+     * @param string $controller
+     * @return array
+     */
+    protected function getUrlHandlersForController($controller)
+    {
+        $handlers = $this->getValuesOrKeysFromConfig($controller, 'url_handlers');
+
+        foreach ($handlers as $key => $handler) {
+            if($handler == '') unset($handlers[$key]);
+        }
+
+        return $handlers;
+    }
+
+    /**
+     * @param string $controller
+     * @param string $config
+     * @return array
+     */
+    protected function getValuesOrKeysFromConfig($controller, $config = 'allowed_actions')
+    {
+        $values = (array)Config::inst()->get($controller, $config, Config::UNINHERITED);
+
+        if(!isset($values[0])) { // assoc with permissions set as values
+            $values = array_keys($values);
+        }
+
+        return $values;
     }
 }
