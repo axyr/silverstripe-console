@@ -9,7 +9,7 @@ This will likely not work as it should be... Hang on...
 
 Interact with your Silverstripe application from the command line with supersake.
 
-![Screenshot](https://raw.github.com/axyr/silverstripe-console/master/images/screenshot.png)
+![Screenshot](https://raw.githubusercontent.com/axyr/silverstripe-console/master/images/console.png)
 
 
 ## Summary
