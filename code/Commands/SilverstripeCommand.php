@@ -15,6 +15,8 @@ use Symfony\Component\Console\Command\Command as SymfonyCommand;
  *
  * Shameless copy/paste from Taylor Otwell's Laravel,
  * but modified for Silverstripe usage.
+ *
+ * There is not changed much, besides the removal of the Laravel application coupling.
  */
 abstract class SilverstripeCommand extends SymfonyCommand
 {
