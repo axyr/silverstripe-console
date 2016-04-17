@@ -161,7 +161,14 @@ abstract class SilverstripeCommand extends SymfonyCommand
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        return $this->fire();
+        $this->fire();
+
+        // check last, so message is always visible
+        $checker =  new SuperSakeChecker();
+        $msg = $checker->superSakeIsNotProtected();
+        if((bool)$msg) {
+            $this->error($msg);
+        }
     }
 
     abstract function fire();

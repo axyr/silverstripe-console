@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * Class DummyClass
+ */
+class DummyClass extends SilverstripeCommand
+{
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $name = 'change:me';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = '';
+
+    /**
+     * Fire the command
+     */
+    public function fire()
+    {
+        $this->info('Command fired');
+    }
+}

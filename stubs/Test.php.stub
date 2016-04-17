@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Class DummyClass
+ *
+ * @mixin PHPUnit_Framework_TestCase
+ */
+class DummyClass extends SapphireTest
+{
+    public function setUp()
+    {
+        parent::setUp();
+    }
+
+    public function testTrue()
+    {
+        $this->assertTrue(false);
+    }
+    
+}

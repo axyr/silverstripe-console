@@ -19,12 +19,19 @@ abstract class MakeCommand extends SilverstripeCommand
         'Extension'           => 'mysite/code/extensions',
         'Form'                => 'mysite/code/forms',
         'Page'                => 'mysite/code/pages',
+        'Test'                => 'mysite/tests',
         'Theme'               => 'themes'
     ];
 
     public function fire()
     {
         $class  = $this->getNameInput();
+
+        if(!(bool)$class) {
+            $this->error('Empty name given. Are you running a test?');
+            return false;
+        }
+
         $target = $this->getTargetFile($class);
 
         if ($this->classExists($class)) {
@@ -117,7 +124,7 @@ abstract class MakeCommand extends SilverstripeCommand
      *
      * @return string
      */
-    protected function getCommandClass()
+    public function getCommandClass()
     {
         $class = get_class($this);
         $class = Str::replaceFirst('Make', '', $class);
@@ -132,6 +139,10 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     protected function getTargetDirectoryByOptionOrConfig()
     {
+        if($this->option('dir')) {
+            return $this->option('dir');
+        }
+
         return Config::inst()->get('MakeCommand', 'default_dirs');
     }
 
@@ -241,7 +252,8 @@ abstract class MakeCommand extends SilverstripeCommand
     protected function getOptions()
     {
         return [
-            ['clearcache', 'c', InputOption::VALUE_NONE, 'Clear the cache after adding the class']
+            ['clearcache', 'c', InputOption::VALUE_NONE, 'Clear the cache after adding the class'],
+            ['dir', 'd', InputOption::VALUE_OPTIONAL, 'Set the directory to write the file to']
         ];
     }
 

@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * Class BuildCommand
+ */
 class BuildCommand extends SilverstripeCommand
 {
     /**

@@ -15,5 +15,10 @@ class InstallPublishTest extends SapphireTest
     {
         $this->assertTrue(is_file(BASE_PATH . '/supersake'));
     }
-
+    
+    public function testSuperSakeProtectionMessageIsShown()
+    {
+        
+    }
+    
 }
