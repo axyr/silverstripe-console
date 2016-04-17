@@ -33,5 +33,5 @@ if ($databaseConfig) DB::connect($databaseConfig);
 /**
  * Boostrap the Console Application and run it...
  */
-$application = new Application();
+$application = new SilverstripeApplication();
 $application->run(new Symfony\Component\Console\Input\ArgvInput($_SERVER['argv']));

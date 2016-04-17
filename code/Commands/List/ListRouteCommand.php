@@ -45,7 +45,7 @@ class ListRouteCommand extends SilverstripeCommand
      */
     protected function getActionsForController($controller)
     {
-        $actions = $this->getValuesOrKeysFromConfig($controller, 'allowed_actions');
+        $actions = (array)$this->getValuesOrKeysFromConfig($controller, 'allowed_actions');
 
         foreach ($actions as $key => $action) {
             if($action == 'index') unset($actions[$key]);
@@ -60,7 +60,7 @@ class ListRouteCommand extends SilverstripeCommand
      */
     protected function getUrlHandlersForController($controller)
     {
-        $handlers = $this->getValuesOrKeysFromConfig($controller, 'url_handlers');
+        $handlers = (array)$this->getValuesOrKeysFromConfig($controller, 'url_handlers');
 
         foreach ($handlers as $key => $handler) {
             if($handler == '') unset($handlers[$key]);

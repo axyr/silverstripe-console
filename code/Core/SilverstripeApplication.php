@@ -11,7 +11,7 @@ use Symfony\Component\Console\Command\Command as SymfonyCommand;
  *
  * Shameless copy/paste from Taylor Otwell's Laravel
  */
-class Application extends SymfonyApplication
+class SilverstripeApplication extends SymfonyApplication
 {
 
     /**
@@ -26,9 +26,17 @@ class Application extends SymfonyApplication
         parent::__construct();
 
         $this->loadCommands();
+        
+        $this->add($default = new DefaultCommand());
+        $this->setDefaultCommand($default->getName());
 
         $this->setAutoExit(false);
         $this->setCatchExceptions(false);
+    }
+
+    public function run($input = null, $output = null)
+    {
+        return parent::run($input, $output);
     }
 
     /**
@@ -121,7 +129,7 @@ class Application extends SymfonyApplication
         /**
          * Why does this not work
          */
-        $commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
+        ///$commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
 
         // This works, but does not load custom Commands
         $commands = ClassInfo::classes_for_folder(BASE_PATH . '/console/code/');

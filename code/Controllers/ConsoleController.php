@@ -40,7 +40,7 @@ class ConsoleController extends Controller
     public function publish()
     {
         if (Director::is_cli()) {
-            $this->writesupersakefile();
+            $this->writeSuperSakeFileToWebRoot();
             $this->writehtaccess();
             $this->writewebconfig();
         }
@@ -63,7 +63,7 @@ class ConsoleController extends Controller
         }
     }
 
-    protected function writesupersakefile()
+    protected function writeSuperSakeFileToWebRoot()
     {
         file_put_contents(
             BASE_PATH . '/supersake',
