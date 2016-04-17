@@ -25,6 +25,8 @@ class Application extends SymfonyApplication
     {
         parent::__construct();
 
+        $this->loadCommands();
+
         $this->setAutoExit(false);
         $this->setCatchExceptions(false);
     }
@@ -109,6 +111,28 @@ class Application extends SymfonyApplication
         $message = 'The environment the command should run under.';
 
         return new InputOption('--env', null, InputOption::VALUE_OPTIONAL, $message);
+    }
+
+    /**
+     * Load all available commands into the console application
+     */
+    protected function loadCommands()
+    {
+        /**
+         * Why does this not work
+         */
+        $commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
+
+        // This works, but does not load custom Commands
+        $commands = ClassInfo::classes_for_folder(BASE_PATH . '/console/code/');
+
+        /** @var SilverstripeCommand $command */
+        foreach ($commands as $command) {
+            $reflection = new ReflectionClass($command);
+            if (!$reflection->isAbstract() && $reflection->isSubclassOf('SilverstripeCommand')) {
+                $this->add(new $command());
+            }
+        }
     }
 
 }

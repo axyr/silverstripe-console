@@ -31,27 +31,7 @@ global $databaseConfig;
 if ($databaseConfig) DB::connect($databaseConfig);
 
 /**
- * Load the available Commands into the Symfony Console Application
+ * Boostrap the Console Application and run it...
  */
-$application = new Symfony\Component\Console\Application();
-
-/**
- * Why does this not work
- */
-$commands = ClassInfo::subclassesFor('SilverstripeCommand');
-//var_dump($commands);exit();
-// This works, but does not load custom Commands
-$commands = ClassInfo::classes_for_folder(BASE_PATH . '/console/code/');
-
-/** @var SilverstripeCommand $command */
-foreach ($commands as $command) {
-    $reflection     = new ReflectionClass($command);
-    if (!$reflection->isAbstract() &&  $reflection->isSubclassOf('SilverstripeCommand')) {
-        $application->add(new $command());
-    }
-}
-
-/**
- * Run Forest..
- */
+$application = new Application();
 $application->run(new Symfony\Component\Console\Input\ArgvInput($_SERVER['argv']));
