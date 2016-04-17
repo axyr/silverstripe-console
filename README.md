@@ -1,6 +1,6 @@
-# silverstripe-supersake
+# silverstripe-console (supersake)
 
-[![Packagist](https://img.shields.io/badge/unstable-dev--master-orange.svg)]
+![Packagist](https://img.shields.io/badge/unstable-dev--master-orange.svg)
 
 # Very unstable and incomplete module.....
 
@@ -19,7 +19,7 @@ $ php supersake make:dataobject MyCustomDataObject
 List DataObjects, Controllers, Config and more in a nice table style list with:
 
 ```
-$ php supersake list:controller MyCustomDataObject
+$ php supersake list:controller
 ```
 
 Create or block members by email or send a Password reset link
@@ -28,7 +28,7 @@ Create or block members by email or send a Password reset link
 
 Install with 
 ```
-$ composer require axyr/silverstripe-supersake
+$ composer require axyr/silverstripe-console
 ```
 
 This will copy the file 'supersake' to your webroot.
