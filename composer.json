@@ -30,7 +30,7 @@
     },
     "target-dir": "console",
     "scripts": {
-        "post-install-cmd": [
+        "post-create-project-cmd": [
             "php framework/cli-script.php dev/build flush=all",
             "php framework/cli-script.php console/publish"
         ]
