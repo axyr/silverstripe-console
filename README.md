@@ -45,7 +45,7 @@ Now protect the supersake file
 </fileExtensions>
 ```
 
-You should now be able to show a list of available commands with :
+You should now be able to show a list of available commands by running this from your webroot :
 
 ```
 $ php supersake
