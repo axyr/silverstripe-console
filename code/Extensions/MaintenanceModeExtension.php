@@ -39,13 +39,25 @@ class MaintenanceModeExtension extends Extension
 
         header($message, true, 503);
 
-        $errorFile = BASE_PATH.'/assets/error-503.html';
+        $errorFile = $this->get503File();
+
         if(is_file($errorFile)) {
             $content = file_get_contents($errorFile);
         }
 
         echo $content;
         exit();
+    }
+
+    protected function get503File()
+    {
+        $custom = BASE_PATH.(string)Config::inst()->get('MaintenanceMode', 'file');
+
+        if(is_file($custom)) {
+            return $custom;
+        }
+
+        return BASE_PATH.'/assets/error-503.html';
     }
 
 }
