@@ -312,6 +312,9 @@ abstract class AbstractMakeCommand extends SilverstripeCommand
         return (string) $this->argument('name');
     }
 
+    /**
+     * @return array
+     */
     protected function getOptions()
     {
         return [
@@ -321,8 +324,6 @@ abstract class AbstractMakeCommand extends SilverstripeCommand
     }
 
     /**
-     * Get the console command arguments.
-     *
      * @return array
      */
     protected function getArguments()

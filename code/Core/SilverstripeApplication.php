@@ -31,7 +31,7 @@ class SilverstripeApplication extends SymfonyApplication
         $this->setDefaultCommand($default->getName());
 
         $this->setAutoExit(false);
-        $this->setCatchExceptions(false);
+        $this->setCatchExceptions(true);
     }
 
     public function run(InputInterface $input = null, OutputInterface $output = null)
