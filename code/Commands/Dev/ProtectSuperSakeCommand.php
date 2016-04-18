@@ -21,5 +21,4 @@ class ProtectSuperSakeCommand extends SilverstripeCommand
     {
         // $this->writeHtAccessFile();
     }
-
 }

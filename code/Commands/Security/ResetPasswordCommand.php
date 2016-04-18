@@ -17,5 +17,4 @@ class ResetPasswordCommand extends SilverstripeCommand
     {
         $this->warn('Not implemented yet!');
     }
-
 }

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class MakeTestCommand
+ * Class MakeTestCommand.
  */
 class MakeTestCommand extends MakeCommand
 {

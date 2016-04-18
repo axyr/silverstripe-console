@@ -1,17 +1,17 @@
 <?php
 
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Output\NullOutput;
-use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
+use Symfony\Component\Console\Question\Question;
 
 /**
- * Class SilverstripeCommand
+ * Class SilverstripeCommand.
  *
  * Shameless copy/paste from Taylor Otwell's Laravel,
  * but modified for Silverstripe usage.
@@ -20,7 +20,6 @@ use Symfony\Component\Console\Command\Command as SymfonyCommand;
  */
 abstract class SilverstripeCommand extends SymfonyCommand
 {
-
     /**
      * The input interface implementation.
      *
@@ -94,7 +93,7 @@ abstract class SilverstripeCommand extends SymfonyCommand
 
         $this->setDescription($this->description);
 
-        if (! isset($this->signature)) {
+        if (!isset($this->signature)) {
             $this->specifyParameters();
         }
     }
@@ -141,8 +140,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Run the console command.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return int
      */
     public function run(InputInterface $input, OutputInterface $output)
@@ -157,8 +157,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Execute the console command.
      *
-     * @param  \Symfony\Component\Console\Input\InputInterface  $input
-     * @param  \Symfony\Component\Console\Output\OutputInterface  $output
+     * @param \Symfony\Component\Console\Input\InputInterface   $input
+     * @param \Symfony\Component\Console\Output\OutputInterface $output
+     *
      * @return mixed
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -166,20 +167,21 @@ abstract class SilverstripeCommand extends SymfonyCommand
         $this->fire();
 
         // check last, so message is always visible
-        $checker =  new SuperSakeChecker();
+        $checker = new SuperSakeChecker();
         $msg = $checker->superSakeIsNotProtected();
-        if((bool)$msg) {
+        if ((bool) $msg) {
             $this->error($msg);
         }
     }
 
-    abstract function fire();
+    abstract public function fire();
 
     /**
      * Call another console command.
      *
-     * @param  string  $command
-     * @param  array   $arguments
+     * @param string $command
+     * @param array  $arguments
+     *
      * @return int
      */
     public function call($command, array $arguments = [])
@@ -194,8 +196,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Call another console command silently.
      *
-     * @param  string  $command
-     * @param  array   $arguments
+     * @param string $command
+     * @param array  $arguments
+     *
      * @return int
      */
     public function callSilent($command, array $arguments = [])
@@ -204,13 +207,14 @@ abstract class SilverstripeCommand extends SymfonyCommand
 
         $arguments['command'] = $command;
 
-        return $instance->run(new ArrayInput($arguments), new NullOutput);
+        return $instance->run(new ArrayInput($arguments), new NullOutput());
     }
 
     /**
      * Get the value of a command argument.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return string|array
      */
     public function argument($key = null)
@@ -225,7 +229,8 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Get the value of a command option.
      *
-     * @param  string  $key
+     * @param string $key
+     *
      * @return string|array
      */
     public function option($key = null)
@@ -240,8 +245,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Confirm a question with the user.
      *
-     * @param  string  $question
-     * @param  bool    $default
+     * @param string $question
+     * @param bool   $default
+     *
      * @return bool
      */
     public function confirm($question, $default = false)
@@ -252,8 +258,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Prompt the user for input.
      *
-     * @param  string  $question
-     * @param  string  $default
+     * @param string $question
+     * @param string $default
+     *
      * @return string
      */
     public function ask($question, $default = null)
@@ -264,9 +271,10 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Prompt the user for input with auto completion.
      *
-     * @param  string  $question
-     * @param  array   $choices
-     * @param  string  $default
+     * @param string $question
+     * @param array  $choices
+     * @param string $default
+     *
      * @return string
      */
     public function anticipate($question, array $choices, $default = null)
@@ -277,9 +285,10 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Prompt the user for input with auto completion.
      *
-     * @param  string  $question
-     * @param  array   $choices
-     * @param  string  $default
+     * @param string $question
+     * @param array  $choices
+     * @param string $default
+     *
      * @return string
      */
     public function askWithCompletion($question, array $choices, $default = null)
@@ -294,8 +303,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Prompt the user for input but hide the answer from the console.
      *
-     * @param  string  $question
-     * @param  bool    $fallback
+     * @param string $question
+     * @param bool   $fallback
+     *
      * @return string
      */
     public function secret($question, $fallback = true)
@@ -310,11 +320,12 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Give the user a single choice from an array of answers.
      *
-     * @param  string  $question
-     * @param  array   $choices
-     * @param  string  $default
-     * @param  mixed   $attempts
-     * @param  bool    $multiple
+     * @param string $question
+     * @param array  $choices
+     * @param string $default
+     * @param mixed  $attempts
+     * @param bool   $multiple
+     *
      * @return string
      */
     public function choice($question, array $choices, $default = null, $attempts = null, $multiple = null)
@@ -329,9 +340,10 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Format input to textual table.
      *
-     * @param  array   $headers
-     * @param  array   $rows
-     * @param  string  $style
+     * @param array  $headers
+     * @param array  $rows
+     * @param string $style
+     *
      * @return void
      */
     public function table(array $headers, $rows, $style = 'default')
@@ -344,8 +356,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Write a string as information output.
      *
-     * @param  string  $string
-     * @param  null|int|string  $verbosity
+     * @param string          $string
+     * @param null|int|string $verbosity
+     *
      * @return void
      */
     public function info($string, $verbosity = null)
@@ -356,9 +369,10 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Write a string as standard output.
      *
-     * @param  string  $string
-     * @param  string  $style
-     * @param  null|int|string  $verbosity
+     * @param string          $string
+     * @param string          $style
+     * @param null|int|string $verbosity
+     *
      * @return void
      */
     public function line($string, $style = null, $verbosity = null)
@@ -371,8 +385,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Write a string as comment output.
      *
-     * @param  string  $string
-     * @param  null|int|string  $verbosity
+     * @param string          $string
+     * @param null|int|string $verbosity
+     *
      * @return void
      */
     public function comment($string, $verbosity = null)
@@ -383,8 +398,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Write a string as question output.
      *
-     * @param  string  $string
-     * @param  null|int|string  $verbosity
+     * @param string          $string
+     * @param null|int|string $verbosity
+     *
      * @return void
      */
     public function question($string, $verbosity = null)
@@ -395,8 +411,9 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Write a string as error output.
      *
-     * @param  string  $string
-     * @param  null|int|string  $verbosity
+     * @param string          $string
+     * @param null|int|string $verbosity
+     *
      * @return void
      */
     public function error($string, $verbosity = null)
@@ -407,13 +424,14 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Write a string as warning output.
      *
-     * @param  string  $string
-     * @param  null|int|string  $verbosity
+     * @param string          $string
+     * @param null|int|string $verbosity
+     *
      * @return void
      */
     public function warn($string, $verbosity = null)
     {
-        if (! $this->output->getFormatter()->hasStyle('warning')) {
+        if (!$this->output->getFormatter()->hasStyle('warning')) {
             $style = new OutputFormatterStyle('yellow');
 
             $this->output->getFormatter()->setStyle('warning', $style);
@@ -425,14 +443,15 @@ abstract class SilverstripeCommand extends SymfonyCommand
     /**
      * Get the verbosity level in terms of Symfony's OutputInterface level.
      *
-     * @param  string|int  $level
+     * @param string|int $level
+     *
      * @return int
      */
     protected function parseVerbosity($level = null)
     {
         if (isset($this->verbosityMap[$level])) {
             $level = $this->verbosityMap[$level];
-        } elseif (! is_int($level)) {
+        } elseif (!is_int($level)) {
             $level = $this->verbosity;
         }
 
@@ -443,6 +462,7 @@ abstract class SilverstripeCommand extends SymfonyCommand
      * Set the verbosity level.
      *
      * @param string|int $level
+     *
      * @return void
      */
     protected function setVerbosity($level)
@@ -479,5 +499,4 @@ abstract class SilverstripeCommand extends SymfonyCommand
     {
         return $this->output;
     }
-
 }

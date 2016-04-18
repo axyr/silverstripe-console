@@ -14,7 +14,7 @@ class ListRouteCommand extends SilverstripeCommand
 
     public function fire()
     {
-        $headers = array('Route', 'Controller', 'Allowed Actions');
+        $headers = ['Route', 'Controller', 'Allowed Actions'];
 
         $this->table($headers, $this->routes());
     }
@@ -23,15 +23,14 @@ class ListRouteCommand extends SilverstripeCommand
     {
         $routes = Config::inst()->get('Director', 'rules');
 
-        $list = array();
+        $list = [];
 
-        foreach($routes as $route => $controller) {
-
+        foreach ($routes as $route => $controller) {
             $handlers = $this->getUrlHandlersForController($controller);
 
-            $actions  = $handlers ? $handlers : $this->getActionsForController($controller);
+            $actions = $handlers ? $handlers : $this->getActionsForController($controller);
 
-            $list[$route] = array($route, $controller, implode("\n", $actions));
+            $list[$route] = [$route, $controller, implode("\n", $actions)];
         }
 
         ksort($list);
@@ -41,14 +40,17 @@ class ListRouteCommand extends SilverstripeCommand
 
     /**
      * @param string $controller
+     *
      * @return array
      */
     protected function getActionsForController($controller)
     {
-        $actions = (array)$this->getValuesOrKeysFromConfig($controller, 'allowed_actions');
+        $actions = (array) $this->getValuesOrKeysFromConfig($controller, 'allowed_actions');
 
         foreach ($actions as $key => $action) {
-            if($action == 'index') unset($actions[$key]);
+            if ($action == 'index') {
+                unset($actions[$key]);
+            }
         }
 
         return $actions;
@@ -56,14 +58,17 @@ class ListRouteCommand extends SilverstripeCommand
 
     /**
      * @param string $controller
+     *
      * @return array
      */
     protected function getUrlHandlersForController($controller)
     {
-        $handlers = (array)$this->getValuesOrKeysFromConfig($controller, 'url_handlers');
+        $handlers = (array) $this->getValuesOrKeysFromConfig($controller, 'url_handlers');
 
         foreach ($handlers as $key => $handler) {
-            if($handler == '') unset($handlers[$key]);
+            if ($handler == '') {
+                unset($handlers[$key]);
+            }
         }
 
         return $handlers;
@@ -72,13 +77,14 @@ class ListRouteCommand extends SilverstripeCommand
     /**
      * @param string $controller
      * @param string $config
+     *
      * @return array
      */
     protected function getValuesOrKeysFromConfig($controller, $config = 'allowed_actions')
     {
-        $values = (array)Config::inst()->get($controller, $config, Config::UNINHERITED);
+        $values = (array) Config::inst()->get($controller, $config, Config::UNINHERITED);
 
-        if(!isset($values[0])) { // assoc with permissions set as values
+        if (!isset($values[0])) { // assoc with permissions set as values
             $values = array_keys($values);
         }
 

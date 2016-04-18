@@ -31,13 +31,13 @@ class ClearCommand extends SilverstripeCommand
         //$this->info('cache rebuild!');
     }
 
-    protected function delTree($dir) {
-
-        $files = array_diff(scandir($dir), array('.','..'));
+    protected function delTree($dir)
+    {
+        $files = array_diff(scandir($dir), ['.', '..']);
         foreach ($files as $file) {
             (is_dir("$dir/$file")) ? $this->delTree("$dir/$file") : unlink("$dir/$file");
         }
+
         return rmdir($dir);
     }
-
 }

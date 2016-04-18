@@ -12,5 +12,4 @@ class MakeControllerExtensionCommand extends MakeCommand
      * @var string
      */
     protected $description = 'Create a new Extension class for a Controller';
-
 }
