@@ -1,7 +1,7 @@
 <?php
 
 
-class ListControllerCommand extends SilverstripeCommand
+class ListControllerCommand extends AbstractListCommand
 {
     /**
      * @var string
@@ -13,46 +13,19 @@ class ListControllerCommand extends SilverstripeCommand
      */
     protected $description = 'List all subclasses of Controller';
 
-    public function fire()
+    public function getClassName()
     {
-        $headers = ['Controller', 'Extensions', 'Module'];
-
-        $this->table($headers, $this->controllers());
+        return 'Controller';
     }
 
-    protected function controllers()
+    /**
+     * @param $className
+     * @return array
+     */
+    protected function getParentClasses($className)
     {
-        $controllers = ClassInfo::subclassesFor('Controller');
-
-        unset($controllers['Controller']);
-
-        foreach ($controllers as $controller) {
-            $controllers[$controller] = [
-                $controller,
-                implode("\n", (array) $this->extensions($controller)),
-                $this->module($controller),
-            ];
-        }
-
-        ksort($controllers);
-
-        return $controllers;
-    }
-
-    protected function extensions($className)
-    {
-        return Config::inst()->get($className, 'extensions', Config::UNINHERITED);
-    }
-
-    protected function module($className)
-    {
-        $reflection = new \ReflectionClass($className);
-        $file = $reflection->getFileName();
-
-        $path = str_replace([BASE_PATH.'/'], '', $file);
-
-        $parts = explode(DIRECTORY_SEPARATOR, $path);
-
-        return array_shift($parts);
+        // removes $className and Controller => RequestHandler => ViewableData => Object
+        $parentClasses = array_slice(parent::getParentClasses($className), 4, -1);
+        return array_reverse($parentClasses);
     }
 }

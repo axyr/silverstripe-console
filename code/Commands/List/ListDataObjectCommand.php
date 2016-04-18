@@ -1,7 +1,7 @@
 <?php
 
 
-class ListDataObjectCommand extends SilverstripeCommand
+class ListDataObjectCommand extends AbstractListCommand
 {
     /**
      * @var string
@@ -13,56 +13,21 @@ class ListDataObjectCommand extends SilverstripeCommand
      */
     protected $description = 'List all subclasses of DataObject';
 
-    public function fire()
+    /**
+     * @return string
+     */
+    public function getClassName()
     {
-        $headers = ['DataObject', 'ParentClasses', 'Location'];
-
-        $this->table($headers, $this->dataobjects());
+        return 'DataObject';
     }
 
-    public function dataobjects()
+    /**
+     * @param string $className
+     * @return array
+     */
+    public function getParentClasses($className)
     {
-        $dataObjects = ClassInfo::subclassesFor('DataObject');
-
-        unset($dataObjects['DataObject']);
-
-        $list = [];
-
-        foreach ($dataObjects as $key => $dataObject) {
-            $parentClasses = ClassInfo::ancestry($dataObject);
-            array_shift($parentClasses);
-            array_shift($parentClasses);
-            array_shift($parentClasses);
-            array_pop($parentClasses);
-            $parentClasses = array_reverse($parentClasses);
-
-            $extensions = $this->extensions($dataObject);
-
-            $reflection = new \ReflectionClass($dataObject);
-            $file = $reflection->getFileName();
-
-            $list[$dataObject] = [
-                $dataObject,
-                implode(' => ', $parentClasses),
-                str_replace([BASE_PATH.'/'], '', $file),
-            ];
-        }
-
-        ksort($list);
-
-        return $list;
-    }
-
-    protected function extensions($className)
-    {
-        $extensionClasses = (array) ClassInfo::subclassesFor('Object');
-
-        $owners = (array) array_filter($extensionClasses, function ($class) use ($className) {
-            $config = Config::inst()->get($class, 'extensions', Config::UNINHERITED);
-
-            return $config !== null && in_array($className, $config, null);
-        });
-
-        return $owners;
+        $parentClasses = array_slice(parent::getParentClasses($className), 3, -1);
+        return array_reverse($parentClasses);
     }
 }
