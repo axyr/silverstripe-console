@@ -17,7 +17,7 @@ class BuildCommand extends SilverstripeCommand
 
     public function fire()
     {
-        //$this->call('cache:clear');
+        $this->call('cache:clear');
 
         /** @var DatabaseAdmin $da */
         $da = DatabaseAdmin::create();

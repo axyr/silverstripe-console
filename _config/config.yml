@@ -1,0 +1,9 @@
+---
+Name: consoleconfig
+---
+Director:
+  rules:
+    'console': 'ConsoleController'
+Controller:
+  extensions:
+    - MaintenanceModeExtension

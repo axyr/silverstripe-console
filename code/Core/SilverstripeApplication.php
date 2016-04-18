@@ -41,7 +41,7 @@ class SilverstripeApplication extends SymfonyApplication
     }
 
     /**
-     * Run an Artisan console command by name.
+     * Run an Silverstripe console command by name.
      *
      * @param string $command
      * @param array  $parameters
@@ -71,30 +71,6 @@ class SilverstripeApplication extends SymfonyApplication
     public function output()
     {
         return $this->lastOutput ? $this->lastOutput->fetch() : '';
-    }
-
-    /**
-     * Add a command to the console.
-     *
-     * @param \Symfony\Component\Console\Command\Command $command
-     *
-     * @return \Symfony\Component\Console\Command\Command
-     */
-    public function add(SymfonyCommand $command)
-    {
-        return $this->addToParent($command);
-    }
-
-    /**
-     * Add the command to the parent instance.
-     *
-     * @param \Symfony\Component\Console\Command\Command $command
-     *
-     * @return \Symfony\Component\Console\Command\Command
-     */
-    protected function addToParent(SymfonyCommand $command)
-    {
-        return parent::add($command);
     }
 
     /**
@@ -130,11 +106,7 @@ class SilverstripeApplication extends SymfonyApplication
      */
     protected function loadCommands()
     {
-        /*
-         * Why does this not work
-         */
-        //$commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
-
+       // somehow ClassInfo::subclassesFor('SilverstripeCommand'); does not work
         $classes = SS_ClassLoader::instance()->getManifest()->getClasses();
 
         /** @var SilverstripeCommand $command */

@@ -1,6 +1,0 @@
----
-Name: consoleroutes
----
-Director:
-  rules:
-    'console': 'ConsoleController'

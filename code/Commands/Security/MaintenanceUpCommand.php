@@ -15,6 +15,8 @@ class MaintenanceUpCommand extends SilverstripeCommand
 
     public function fire()
     {
-        $this->warn('Not implemented yet!');
+        @unlink(BASE_PATH.'/framework/down');
+
+        $this->info('Application is now live.');
     }
 }
