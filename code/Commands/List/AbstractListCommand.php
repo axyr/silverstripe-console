@@ -8,14 +8,17 @@ abstract class AbstractListCommand extends SilverstripeCommand
         $this->table($this->getTableHeaders(), $this->getTableData());
     }
 
-    abstract function getClassName();
+    /**
+     * @return string
+     */
+    abstract protected function getClassName();
 
     /**
      * @return array
      */
     protected function getTableData()
     {
-        $classes = ClassInfo::subclassesFor($this->getClassName());
+        $classes = (array)ClassInfo::subclassesFor($this->getClassName());
 
         unset($classes[$this->getClassName()]);
 

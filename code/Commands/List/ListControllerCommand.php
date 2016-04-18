@@ -13,7 +13,7 @@ class ListControllerCommand extends AbstractListCommand
      */
     protected $description = 'List all subclasses of Controller';
 
-    public function getClassName()
+    protected function getClassName()
     {
         return 'Controller';
     }

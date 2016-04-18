@@ -16,7 +16,7 @@ class ListDataObjectCommand extends AbstractListCommand
     /**
      * @return string
      */
-    public function getClassName()
+    protected function getClassName()
     {
         return 'DataObject';
     }
@@ -25,7 +25,7 @@ class ListDataObjectCommand extends AbstractListCommand
      * @param string $className
      * @return array
      */
-    public function getParentClasses($className)
+    protected function getParentClasses($className)
     {
         // removes $className and DataObject => ViewableData => Object
         $parentClasses = array_slice(parent::getParentClasses($className), 3, -1);
