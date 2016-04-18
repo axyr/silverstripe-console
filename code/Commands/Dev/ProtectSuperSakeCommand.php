@@ -15,17 +15,10 @@ class ProtectSuperSakeCommand extends SilverstripeCommand
      *
      * @var string
      */
-    protected $description = 'Prevent direct file access by .htaccess and web.config';
+    protected $description = 'PRevent direct file access by .htaccess and web.config';
 
     public function fire()
     {
-        $this->warn('Not implemented yet!');
+        // $this->writeHtAccessFile();
     }
-
-    public function writeHtAccessFile()
-    {
-
-    }
-
-
 }

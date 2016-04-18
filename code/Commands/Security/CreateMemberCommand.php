@@ -17,5 +17,4 @@ class CreateMemberCommand extends SilverstripeCommand
     {
         $this->warn('Not implemented yet!');
     }
-
 }

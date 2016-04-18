@@ -5,13 +5,12 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class SilverstripeListCommand
+ * Class SilverstripeListCommand.
  *
  * We really need NameSpaces in Silverstripe....
  */
 class DefaultCommand extends ListCommand
 {
-
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         parent::execute($input, $output);
@@ -24,8 +23,8 @@ class DefaultCommand extends ListCommand
      */
     public function addProtectionWarningToOutput(OutputInterface $output)
     {
-        $checker =  new SuperSakeChecker();
-        if((bool)$checker->superSakeIsNotProtected()) {
+        $checker = new SuperSakeChecker();
+        if ((bool) $checker->superSakeIsNotProtected()) {
             $output->writeln("\n");
             $output->writeln('<error>The supersake file is accessible by browsers</error>');
             $output->writeln('<error>Please lock down the file by either : </error>');
@@ -38,5 +37,4 @@ class DefaultCommand extends ListCommand
             $output->writeln("\n");
         }
     }
-
 }

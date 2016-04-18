@@ -17,5 +17,4 @@ class SyncFilesCommand extends SilverstripeCommand
     {
         $this->info(Filesystem::sync());
     }
-
 }

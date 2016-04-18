@@ -3,7 +3,6 @@
 
 class ListControllerCommand extends SilverstripeCommand
 {
-
     /**
      * @var string
      */
@@ -16,7 +15,7 @@ class ListControllerCommand extends SilverstripeCommand
 
     public function fire()
     {
-        $headers = array('Controller', 'Extensions', 'Module');
+        $headers = ['Controller', 'Extensions', 'Module'];
 
         $this->table($headers, $this->controllers());
     }
@@ -27,12 +26,12 @@ class ListControllerCommand extends SilverstripeCommand
 
         unset($controllers['Controller']);
 
-        foreach($controllers as $controller) {
-            $controllers[$controller] = array(
+        foreach ($controllers as $controller) {
+            $controllers[$controller] = [
                 $controller,
-                implode("\n", (array)$this->extensions($controller)),
-                $this->module($controller)
-            );
+                implode("\n", (array) $this->extensions($controller)),
+                $this->module($controller),
+            ];
         }
 
         ksort($controllers);
@@ -50,9 +49,10 @@ class ListControllerCommand extends SilverstripeCommand
         $reflection = new \ReflectionClass($className);
         $file = $reflection->getFileName();
 
-        $path = str_replace(array(BASE_PATH . '/'), '', $file);
+        $path = str_replace([BASE_PATH.'/'], '', $file);
 
         $parts = explode(DIRECTORY_SEPARATOR, $path);
+
         return array_shift($parts);
     }
 }

@@ -17,5 +17,4 @@ class RemoveResampledImageCommand extends SilverstripeCommand
     {
         $this->warn('Not implemented yet!');
     }
-
 }

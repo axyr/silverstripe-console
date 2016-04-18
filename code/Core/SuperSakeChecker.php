@@ -3,9 +3,8 @@
 
 class SuperSakeChecker
 {
-
     /**
-     * Checks if the supersake file in webroot is protected with htaccess or web.config
+     * Checks if the supersake file in webroot is protected with htaccess or web.config.
      *
      * From the command line we don't know on what server software we are running,
      * so we just checking if a .htaccess or web.config exists and has the protection lines in it.
@@ -16,8 +15,8 @@ class SuperSakeChecker
      */
     public function superSakeIsNotProtected()
     {
-        $htaccess  = $this->hasHtAccessProtection(BASE_PATH . '/.htaccess');
-        $webConfig = $this->hasWebConfigProtection(BASE_PATH . '/web.config');
+        $htaccess = $this->hasHtAccessProtection(BASE_PATH.'/.htaccess');
+        $webConfig = $this->hasWebConfigProtection(BASE_PATH.'/web.config');
 
         // nothing is done, add the instructions
         return !$htaccess && !$webConfig;
@@ -25,6 +24,7 @@ class SuperSakeChecker
 
     /**
      * @param string $file
+     *
      * @return bool|string
      */
     protected function hasHtAccessProtection($file)
@@ -35,6 +35,7 @@ class SuperSakeChecker
 
     /**
      * @param string $file
+     *
      * @return bool|string
      */
     protected function hasWebConfigProtection($file)
@@ -53,19 +54,17 @@ class SuperSakeChecker
     Deny from all
 </Files>
 
-EOF
-;
-            return $content;
+EOF;
+
+        return $content;
     }
 
     public function webconfigContent()
     {
         $content = <<<'EOF'
 <add fileExtension="supersake" allowed="false"/>
-EOF
-        ;
+EOF;
+
         return $content;
     }
-
-
 }
