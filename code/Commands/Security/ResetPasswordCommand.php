@@ -1,7 +1,6 @@
 <?php
 
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 
 class ResetPasswordCommand extends SilverstripeCommand
 {
@@ -19,7 +18,7 @@ class ResetPasswordCommand extends SilverstripeCommand
     {
         $member = $this->getMemberByEmailOrID();
 
-        if(!(bool)$member) {
+        if (!(bool) $member) {
             $this->error('Member not found');
         } else {
             $link = $this->sendResetPasswordEmail($member);
@@ -37,9 +36,9 @@ class ResetPasswordCommand extends SilverstripeCommand
 
         $member = null;
 
-        if(Str::contains($emailorid, '@')) {
+        if (Str::contains($emailorid, '@')) {
             $member = Member::get()->where("Email = '".Convert::raw2sql($emailorid)."'")->first();
-        }else{
+        } else {
             $member = Member::get()->byID($emailorid);
         }
 
@@ -50,6 +49,7 @@ class ResetPasswordCommand extends SilverstripeCommand
      * Send the reset password email and return the generated link.
      *
      * @param Member $member
+     *
      * @return string
      */
     protected function sendResetPasswordEmail(Member $member)
@@ -57,19 +57,19 @@ class ResetPasswordCommand extends SilverstripeCommand
         // hack ?
         global $_FILE_TO_URL_MAPPING;
 
-        if($_FILE_TO_URL_MAPPING[BASE_PATH]) {
+        if ($_FILE_TO_URL_MAPPING[BASE_PATH]) {
             $_SERVER['REQUEST_URI'] = $_FILE_TO_URL_MAPPING[BASE_PATH];
         }
 
         $token = $member->generateAutologinTokenAndStoreHash();
-        $link  = Security::getPasswordResetLink($member, $token);
+        $link = Security::getPasswordResetLink($member, $token);
 
         /* @var Member_ForgotPasswordEmail $email */
         $email = Member_ForgotPasswordEmail::create();
         $email->populateTemplate($member);
-        $email->populateTemplate(array(
-            'PasswordResetLink' => $link
-        ));
+        $email->populateTemplate([
+            'PasswordResetLink' => $link,
+        ]);
         $email->setTo($member->Email);
         $email->send();
 
@@ -82,7 +82,7 @@ class ResetPasswordCommand extends SilverstripeCommand
     protected function getArguments()
     {
         return [
-            ['emailorid', InputArgument::REQUIRED, 'The emailaddress or ID of the Member']
+            ['emailorid', InputArgument::REQUIRED, 'The emailaddress or ID of the Member'],
         ];
     }
 }

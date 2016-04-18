@@ -19,14 +19,14 @@ class CreateMemberCommand extends SilverstripeCommand
     {
         $member = $this->createMember();
 
-        if($member !== false) {
+        if ($member !== false) {
             $this->info('Member created with :');
-            $this->line("ID \t\t: " . $member->ID);
-            $this->line("Email \t\t: " . $member->Email);
-            $this->line("Password \t: " . $this->getPasswordFromInputOrEmail($member->Email));
-            $this->line("FirstName \t: " . $member->FirstName);
-            if((bool)$member->Surname) {
-                $this->line("Surname \t: " . $member->Surname);
+            $this->line("ID \t\t: ".$member->ID);
+            $this->line("Email \t\t: ".$member->Email);
+            $this->line("Password \t: ".$this->getPasswordFromInputOrEmail($member->Email));
+            $this->line("FirstName \t: ".$member->FirstName);
+            if ((bool) $member->Surname) {
+                $this->line("Surname \t: ".$member->Surname);
             }
         }
     }
@@ -34,7 +34,7 @@ class CreateMemberCommand extends SilverstripeCommand
     protected function createMember()
     {
         $email = $this->getValidEmailInput();
-        if($email !== false) {
+        if ($email !== false) {
             $member = new Member([
                 'Email'     => $email,
                 'Password'  => $this->getPasswordFromInputOrEmail($email),
@@ -46,16 +46,18 @@ class CreateMemberCommand extends SilverstripeCommand
 
             return $member;
         }
+
         return false;
     }
 
     /**
      * @param string$email
+     *
      * @return DataObject
      */
     protected function emailExists($email)
     {
-        return (bool)Member::get()->where("Email = '".Convert::raw2sql($email)."'")->first();
+        return (bool) Member::get()->where("Email = '".Convert::raw2sql($email)."'")->first();
     }
 
     /**
@@ -65,56 +67,61 @@ class CreateMemberCommand extends SilverstripeCommand
      */
     protected function getValidEmailInput()
     {
-        $email = (string)$this->argument('email');
+        $email = (string) $this->argument('email');
 
-        if(!Email::is_valid_address($email)) {
-            $this->error($email . ' is not a valid emailaddress');
+        if (!Email::is_valid_address($email)) {
+            $this->error($email.' is not a valid emailaddress');
+
             return false;
         }
 
-        if((bool)$this->emailExists($email)) {
+        if ((bool) $this->emailExists($email)) {
             $this->error('A Member already exists with this emailaddress');
+
             return false;
         }
 
-        return (string)$email;
+        return (string) $email;
     }
 
     /**
      * @param string $email
+     *
      * @return string
      */
     protected function getPasswordFromInputOrEmail($email)
     {
-        $password = (string)$this->option('password');
-        return (bool)$password ? $password : $email;
+        $password = (string) $this->option('password');
+
+        return (bool) $password ? $password : $email;
     }
 
     /**
      * @param string $email
+     *
      * @return string
      */
     protected function getFirstNameFromInputOrEmail($email)
     {
         $firstName = $this->option('firstname');
 
-        if(!(bool)$firstName) {
+        if (!(bool) $firstName) {
             list($firstName) = explode('@', $email);
         }
 
-        return (string)$firstName;
+        return (string) $firstName;
     }
 
     /**
      * Surname or Lastname, its the same
-     * I rather prefer Lastname
+     * I rather prefer Lastname.
      */
     protected function getLastNameInput()
     {
-        $surName  = (string)$this->option('surname');
-        $lastName = (string)$this->option('lastname');
+        $surName = (string) $this->option('surname');
+        $lastName = (string) $this->option('lastname');
 
-        return (bool)$surName ? $surName : $lastName;
+        return (bool) $surName ? $surName : $lastName;
     }
 
     /**
@@ -130,7 +137,6 @@ class CreateMemberCommand extends SilverstripeCommand
         ];
     }
 
-
     /**
      * @return array
      */
@@ -140,5 +146,4 @@ class CreateMemberCommand extends SilverstripeCommand
             ['email', InputArgument::REQUIRED, 'The emailaddress of the Member'],
         ];
     }
-
 }
