@@ -137,7 +137,7 @@ class SilverstripeApplication extends SymfonyApplication
 
         $classes = SS_ClassLoader::instance()->getManifest()->getClasses();
 
-        /** @var SilverstripeCommand $command */
+        /* @var SilverstripeCommand $command */
         foreach ($classes as $class => $path) {
             $this->addCommandOrSilentlyFail($class, $path);
         }
@@ -154,12 +154,11 @@ class SilverstripeApplication extends SymfonyApplication
      */
     protected function addCommandOrSilentlyFail($class, $path)
     {
-        if(is_file($path) && class_exists($class)) {
+        if (is_file($path) && class_exists($class)) {
             $reflection = new ReflectionClass($class);
             if (!$reflection->isAbstract() && $reflection->isSubclassOf('SilverstripeCommand')) {
                 $this->add(new $class());
             }
         }
     }
-
 }
