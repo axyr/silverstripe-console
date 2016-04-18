@@ -4,7 +4,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class MaintenanceModeTest
+ * Class MaintenanceModeTest.
  *
  * @mixin PHPUnit_Framework_TestCase
  */
@@ -35,7 +35,7 @@ class MaintenanceModeTest extends SapphireTest
     public function testMaintenanceDownCommand()
     {
         $command = $this->application->find('down');
-        $tester  = new CommandTester($command);
+        $tester = new CommandTester($command);
         $tester->execute(['command' => $command]);
 
         $this->assertTrue(is_file($this->filePath));
@@ -46,13 +46,11 @@ class MaintenanceModeTest extends SapphireTest
     public function testMaintenanceUpCommand()
     {
         $command = $this->application->find('up');
-        $tester  = new CommandTester($command);
+        $tester = new CommandTester($command);
 
         $tester->execute(['command' => $command]);
         $this->assertTrue(!is_file($this->filePath));
 
         @unlink($this->filePath);
     }
-
-
 }

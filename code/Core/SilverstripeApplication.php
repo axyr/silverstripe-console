@@ -1,7 +1,6 @@
 <?php
 
 use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -106,7 +105,7 @@ class SilverstripeApplication extends SymfonyApplication
      */
     protected function loadCommands()
     {
-       // somehow ClassInfo::subclassesFor('SilverstripeCommand'); does not work
+        // somehow ClassInfo::subclassesFor('SilverstripeCommand'); does not work
         $classes = SS_ClassLoader::instance()->getManifest()->getClasses();
 
         /* @var SilverstripeCommand $command */
