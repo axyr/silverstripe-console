@@ -9,14 +9,12 @@
  */
 class MaintenanceModeExtension extends Extension
 {
-
     /**
      * @throws SS_HTTPResponse_Exception
      */
     public function onBeforeInit()
     {
-        if($this->isDownForMaintenance())
-        {
+        if ($this->isDownForMaintenance()) {
             $this->throw503();
         }
     }
@@ -38,9 +36,9 @@ class MaintenanceModeExtension extends Extension
      */
     protected function throw503()
     {
-        $message   = 'Website is down for maintenance';
+        $message = 'Website is down for maintenance';
         $errorFile = $this->get503File();
-        $content   = is_file($errorFile) ? file_get_contents($errorFile) : '<h1>'.$message.'</h1>';
+        $content = is_file($errorFile) ? file_get_contents($errorFile) : '<h1>'.$message.'</h1>';
 
         throw new SS_HTTPResponse_Exception(new SS_HTTPResponse($content, 503, $message));
     }
@@ -50,7 +48,7 @@ class MaintenanceModeExtension extends Extension
      */
     protected function get503File()
     {
-        $custom = BASE_PATH.(string)Config::inst()->get('MaintenanceMode', 'file');
+        $custom = BASE_PATH.(string) Config::inst()->get('MaintenanceMode', 'file');
 
         return is_file($custom) ? $custom : BASE_PATH.'/assets/error-503.html';
     }

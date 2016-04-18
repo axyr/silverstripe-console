@@ -192,7 +192,7 @@ abstract class MakeCommand extends SilverstripeCommand
     }
 
     /**
-     * @return string|array|integer|double|boolean
+     * @return string|array|int|float|bool
      */
     protected function getTargetDirectoryByOptionOrConfig()
     {
