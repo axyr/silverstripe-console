@@ -28,14 +28,12 @@ class ConsoleController extends Controller
             $this->httpError(404);
         }
 
-        $this->application = new Application();
-
-        $this->loadCommands();
+        $this->application = new SilverstripeApplication();
 
         // remove the framework/cli-script.php argument
         array_shift($_SERVER['argv']);
 
-        return $this->application->run(new ArgvInput($_SERVER['argv']));
+        $this->application->run(new ArgvInput($_SERVER['argv']));
     }
 
     public function publish()
@@ -44,23 +42,6 @@ class ConsoleController extends Controller
             $this->writeSuperSakeFileToWebRoot();
             $this->writehtaccess();
             $this->writewebconfig();
-        }
-    }
-
-    public function loadCommands()
-    {
-        //somehow this does not work.
-        //$commands = ClassInfo::subclassesFor('SilverstripeCommand');
-        //var_dump($commands);exit();
-
-        // and this is will not load other classes
-        $commands = ClassInfo::classes_for_folder(BASE_PATH.'/console/');
-
-        /** @var SilverstripeCommand $command */
-        foreach ($commands as $command) {
-            if (is_subclass_of($command, 'SilverstripeCommand')) {
-                $this->application->add(new $command());
-            }
         }
     }
 
