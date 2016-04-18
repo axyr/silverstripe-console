@@ -1,21 +1,20 @@
 <?php
 
+use Symfony\Component\Console\Application as SymfonyApplication;
+use Symfony\Component\Console\Command\Command as SymfonyCommand;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Application as SymfonyApplication;
-use Symfony\Component\Console\Command\Command as SymfonyCommand;
 
 /**
- * Class Application
+ * Class Application.
  *
  * Shameless copy/paste from Taylor Otwell's Laravel
  */
 class SilverstripeApplication extends SymfonyApplication
 {
-
     /**
      * The output from the previous command.
      *
@@ -44,15 +43,16 @@ class SilverstripeApplication extends SymfonyApplication
     /**
      * Run an Artisan console command by name.
      *
-     * @param  string  $command
-     * @param  array  $parameters
+     * @param string $command
+     * @param array  $parameters
+     *
      * @return int
      */
     public function call($command, array $parameters = [])
     {
-        $parameters = array_merge((array)$command, $parameters);
+        $parameters = array_merge((array) $command, $parameters);
 
-        $this->lastOutput = new BufferedOutput;
+        $this->lastOutput = new BufferedOutput();
 
         $this->setCatchExceptions(false);
 
@@ -76,7 +76,8 @@ class SilverstripeApplication extends SymfonyApplication
     /**
      * Add a command to the console.
      *
-     * @param  \Symfony\Component\Console\Command\Command  $command
+     * @param \Symfony\Component\Console\Command\Command $command
+     *
      * @return \Symfony\Component\Console\Command\Command
      */
     public function add(SymfonyCommand $command)
@@ -87,7 +88,8 @@ class SilverstripeApplication extends SymfonyApplication
     /**
      * Add the command to the parent instance.
      *
-     * @param  \Symfony\Component\Console\Command\Command  $command
+     * @param \Symfony\Component\Console\Command\Command $command
+     *
      * @return \Symfony\Component\Console\Command\Command
      */
     protected function addToParent(SymfonyCommand $command)
@@ -124,17 +126,17 @@ class SilverstripeApplication extends SymfonyApplication
     }
 
     /**
-     * Load all available commands into the console application
+     * Load all available commands into the console application.
      */
     protected function loadCommands()
     {
-        /**
+        /*
          * Why does this not work
          */
         ///$commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
 
         // This works, but does not load custom Commands
-        $commands = ClassInfo::classes_for_folder(BASE_PATH . '/console/code/');
+        $commands = ClassInfo::classes_for_folder(BASE_PATH.'/console/code/');
 
         /** @var SilverstripeCommand $command */
         foreach ($commands as $command) {
@@ -144,5 +146,4 @@ class SilverstripeApplication extends SymfonyApplication
             }
         }
     }
-
 }

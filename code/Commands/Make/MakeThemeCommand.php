@@ -17,5 +17,4 @@ class MakeThemeCommand extends MakeCommand
     {
         $this->warn('Not implemented yet!');
     }
-
 }

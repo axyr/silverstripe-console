@@ -4,7 +4,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class MakeCommandTest
+ * Class MakeCommandTest.
  *
  * @mixin PHPUnit_Framework_TestCase
  */
@@ -60,13 +60,13 @@ class MakeCommandTest extends SapphireTest
         $this->application->add(new MakeDataExtensionCommand());
 
         $this->makeDataObjectCommand = $this->application->find('make:dataobject');
-        $this->makeDataObjectTester  = new CommandTester($this->makeDataObjectCommand);
+        $this->makeDataObjectTester = new CommandTester($this->makeDataObjectCommand);
 
-        $this->consoleStubPath = BASE_PATH . '/console/stubs';
-        $this->mysiteStubPath  = BASE_PATH . '/mysite/stubs';
-        $this->mysiteCodePath  = BASE_PATH . '/mysite/code';
-        $this->testsStubPath   = BASE_PATH . '/console/tests/stubs';
-        $this->testsCodePath   = BASE_PATH . '/console/tests/code';
+        $this->consoleStubPath = BASE_PATH.'/console/stubs';
+        $this->mysiteStubPath = BASE_PATH.'/mysite/stubs';
+        $this->mysiteCodePath = BASE_PATH.'/mysite/code';
+        $this->testsStubPath = BASE_PATH.'/console/tests/stubs';
+        $this->testsCodePath = BASE_PATH.'/console/tests/code';
     }
 
     public function itGetsTheCorrectStubFileName()
@@ -82,20 +82,20 @@ class MakeCommandTest extends SapphireTest
      * MakeDataObjectCommand should find DataObject.php.stub from :
      * 1. Config setting if set
      * 2. mysite/stubs if found
-     * 3. console/stubs by default
+     * 3. console/stubs by default.
      */
     public function testItFindsTheStubByNameConventionOrConfig()
     {
         $this->makeDataObjectTester->execute(['command' => $this->makeDataObjectCommand->getName(), 'name' => '']);
 
         // php stub
-        $this->assertEquals($this->consoleStubPath .'/DataObject.php.stub', $this->makeDataObjectCommand->getPhpStub());
+        $this->assertEquals($this->consoleStubPath.'/DataObject.php.stub', $this->makeDataObjectCommand->getPhpStub());
         // template stub
-        $this->assertEquals($this->consoleStubPath .'/DataObject.ss.stub', $this->makeDataObjectCommand->getTemplateStub());
+        $this->assertEquals($this->consoleStubPath.'/DataObject.ss.stub', $this->makeDataObjectCommand->getTemplateStub());
 
         // custom setting
         Config::inst()->update('MakeCommand', 'stub_dir', 'console/tests/stubs');
-        $this->assertEquals($this->testsStubPath .'/DataObject.php.stub', $this->makeDataObjectCommand->getPhpStub());
+        $this->assertEquals($this->testsStubPath.'/DataObject.php.stub', $this->makeDataObjectCommand->getPhpStub());
     }
 
     /**
@@ -117,7 +117,7 @@ class MakeCommandTest extends SapphireTest
     public function testItFindsTheLocationToWriteTheGeneratedClassTo()
     {
         $this->makeDataObjectTester->execute(['command' => $this->makeDataObjectCommand->getName(), 'name' => '']);
-        $this->assertEquals($this->mysiteCodePath . '/dataobjects', $this->makeDataObjectCommand->getTargetDirectory());
+        $this->assertEquals($this->mysiteCodePath.'/dataobjects', $this->makeDataObjectCommand->getTargetDirectory());
     }
 
     /**
@@ -128,7 +128,7 @@ class MakeCommandTest extends SapphireTest
         Config::inst()->update('MakeCommand', 'default_dirs', 'mymodule');
         $this->makeDataObjectTester->execute(['command' => $this->makeDataObjectCommand->getName(), 'name' => '']);
 
-        $this->assertEquals(BASE_PATH . '/mymodule/code/dataobjects', $this->makeDataObjectCommand->getTargetDirectory());
+        $this->assertEquals(BASE_PATH.'/mymodule/code/dataobjects', $this->makeDataObjectCommand->getTargetDirectory());
     }
 
     /**
@@ -139,14 +139,14 @@ class MakeCommandTest extends SapphireTest
         Config::inst()->update('MakeCommand', 'default_dirs', ['DataObject' => 'mysite/code/models']);
         $this->makeDataObjectTester->execute(['command' => $this->makeDataObjectCommand->getName(), 'name' => '']);
 
-        $this->assertEquals($this->mysiteCodePath . '/models', $this->makeDataObjectCommand->getTargetDirectory());
+        $this->assertEquals($this->mysiteCodePath.'/models', $this->makeDataObjectCommand->getTargetDirectory());
 
         // It should not override anything if the given array is not associative
         Config::inst()->remove('MakeCommand', 'default_dirs');
         Config::inst()->update('MakeCommand', 'default_dirs', ['mysite/code/models']);
         $this->makeDataObjectTester->execute(['command' => $this->makeDataObjectCommand->getName(), 'name' => '']);
 
-        $this->assertEquals($this->mysiteCodePath . '/dataobjects', $this->makeDataObjectCommand->getTargetDirectory());
+        $this->assertEquals($this->mysiteCodePath.'/dataobjects', $this->makeDataObjectCommand->getTargetDirectory());
     }
 
     /**
@@ -161,19 +161,19 @@ class MakeCommandTest extends SapphireTest
     }
 
     /**
-     * Like when the directory is set with the --dir option
+     * Like when the directory is set with the --dir option.
      */
     public function testTheTargetDirectoryCanBeSetAllongWithACommand()
     {
         $dataObect = 'MyTestDataObject';
-        $directory = BASE_PATH . '/console/tests/customdir';
-        $filePath  = $directory .'/' . $dataObect . '.php';
+        $directory = BASE_PATH.'/console/tests/customdir';
+        $filePath = $directory.'/'.$dataObect.'.php';
 
         // run command
         $this->makeDataObjectTester->execute([
             'command'      => $this->makeDataObjectCommand->getName(),
             'name'         => $dataObect,
-            '--dir'        => 'console/tests/customdir'
+            '--dir'        => 'console/tests/customdir',
         ]);
 
         $this->assertTrue(is_file($filePath));
@@ -191,12 +191,12 @@ class MakeCommandTest extends SapphireTest
 
         // so we unlink the file created by the command
         $dataObect = 'MyTestDataObject';
-        $filePath = BASE_PATH . '/console/tests/code/'.$dataObect.'.php';
+        $filePath = BASE_PATH.'/console/tests/code/'.$dataObect.'.php';
 
         // run command
         $this->makeDataObjectTester->execute([
             'command'      => $this->makeDataObjectCommand->getName(),
-            'name'         => $dataObect
+            'name'         => $dataObect,
         ]);
 
         $this->assertTrue(is_file($filePath));
@@ -204,7 +204,7 @@ class MakeCommandTest extends SapphireTest
         // run again, should fail because file exists
         $this->makeDataObjectTester->execute([
             'command'      => $this->makeDataObjectCommand->getName(),
-            'name'         => $dataObect
+            'name'         => $dataObect,
         ]);
 
         $msg = 'already exists';

@@ -1,11 +1,10 @@
 <?php
 
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 
 class MockTestCommand extends SilverstripeCommand implements TestOnly
 {
-
     protected $name = 'mock:test';
 
     /**
@@ -15,7 +14,7 @@ class MockTestCommand extends SilverstripeCommand implements TestOnly
      */
     protected $description = 'Mock a TestCommand';
 
-    function fire()
+    public function fire()
     {
     }
 
@@ -23,7 +22,7 @@ class MockTestCommand extends SilverstripeCommand implements TestOnly
     {
         return [
             ['none', 'n', InputOption::VALUE_NONE, 'Option without a value'],
-            ['optional', 'o', InputOption::VALUE_OPTIONAL, 'Option with an optional value']
+            ['optional', 'o', InputOption::VALUE_OPTIONAL, 'Option with an optional value'],
         ];
     }
 

@@ -5,16 +5,16 @@ use Symfony\Component\Console\Input\ArgvInput;
 
 /**
  * Class ConsoleController
- * The Central Command Access Point and Bootstrapper
+ * The Central Command Access Point and Bootstrapper.
  */
 class ConsoleController extends Controller
 {
     /**
      * @var array
      */
-    private static $allowed_actions = array(
-        'publish'
-    );
+    private static $allowed_actions = [
+        'publish',
+    ];
 
     /**
      * @var Symfony\Component\Console\Application
@@ -34,6 +34,7 @@ class ConsoleController extends Controller
 
         // remove the framework/cli-script.php argument
         array_shift($_SERVER['argv']);
+
         return $this->application->run(new ArgvInput($_SERVER['argv']));
     }
 
@@ -53,7 +54,7 @@ class ConsoleController extends Controller
         //var_dump($commands);exit();
 
         // and this is will not load other classes
-        $commands = ClassInfo::classes_for_folder(BASE_PATH . '/console/');
+        $commands = ClassInfo::classes_for_folder(BASE_PATH.'/console/');
 
         /** @var SilverstripeCommand $command */
         foreach ($commands as $command) {
@@ -66,31 +67,28 @@ class ConsoleController extends Controller
     protected function writeSuperSakeFileToWebRoot()
     {
         file_put_contents(
-            BASE_PATH . '/supersake',
-            file_get_contents(BASE_PATH . '/console/publish/supersake')
+            BASE_PATH.'/supersake',
+            file_get_contents(BASE_PATH.'/console/publish/supersake')
         );
     }
 
     /**
-     * protect the supersake file with htaccess
+     * protect the supersake file with htaccess.
      */
     protected function writehtaccess()
     {
-        $content = "# Deny access to supersake
+        $content = '# Deny access to supersake
 <Files supersake>
 	Order allow,deny
 	Deny from all
-</Files>";
-
+</Files>';
     }
 
     /**
-     * protect the supersake file with web.config
+     * protect the supersake file with web.config.
      */
     public function writewebconfig()
     {
         //<add fileExtension="supersake" allowed="false"/>
     }
-
-
 }

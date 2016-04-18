@@ -15,7 +15,7 @@ class ListDataObjectCommand extends SilverstripeCommand
 
     public function fire()
     {
-        $headers = array('DataObject', 'ParentClasses', 'Location');
+        $headers = ['DataObject', 'ParentClasses', 'Location'];
 
         $this->table($headers, $this->dataobjects());
     }
@@ -26,10 +26,9 @@ class ListDataObjectCommand extends SilverstripeCommand
 
         unset($dataObjects['DataObject']);
 
-        $list = array();
+        $list = [];
 
-        foreach($dataObjects as $key => $dataObject) {
-
+        foreach ($dataObjects as $key => $dataObject) {
             $parentClasses = ClassInfo::ancestry($dataObject);
             array_shift($parentClasses);
             array_shift($parentClasses);
@@ -42,11 +41,11 @@ class ListDataObjectCommand extends SilverstripeCommand
             $reflection = new \ReflectionClass($dataObject);
             $file = $reflection->getFileName();
 
-            $list[$dataObject] = array(
+            $list[$dataObject] = [
                 $dataObject,
                 implode(' => ', $parentClasses),
-                str_replace(array(BASE_PATH . '/'), '', $file)
-            );
+                str_replace([BASE_PATH.'/'], '', $file),
+            ];
         }
 
         ksort($list);
@@ -56,14 +55,14 @@ class ListDataObjectCommand extends SilverstripeCommand
 
     protected function extensions($className)
     {
-        $extensionClasses = (array)ClassInfo::subclassesFor('Object');
+        $extensionClasses = (array) ClassInfo::subclassesFor('Object');
 
-        $owners = (array)array_filter($extensionClasses, function($class) use ($className) {
+        $owners = (array) array_filter($extensionClasses, function ($class) use ($className) {
             $config = Config::inst()->get($class, 'extensions', Config::UNINHERITED);
-            return ($config !== null && in_array($className, $config, null));
+
+            return $config !== null && in_array($className, $config, null);
         });
+
         return $owners;
     }
-
-
 }

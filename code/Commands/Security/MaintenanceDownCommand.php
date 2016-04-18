@@ -17,5 +17,4 @@ class MaintenanceDownCommand extends SilverstripeCommand
     {
         $this->warn('Not implemented yet!');
     }
-
 }

@@ -8,6 +8,7 @@ abstract class MakeCommand extends SilverstripeCommand
 {
     /**
      * @config
+     *
      * @var array
      */
     private static $default_dirs = [
@@ -20,21 +21,22 @@ abstract class MakeCommand extends SilverstripeCommand
         'Form'                => 'mysite/code/forms',
         'Page'                => 'mysite/code/pages',
         'Test'                => 'mysite/tests',
-        'Theme'               => 'themes'
+        'Theme'               => 'themes',
     ];
 
     public function fire()
     {
-        $class  = $this->getNameInput();
+        $class = $this->getNameInput();
 
-        if(!(bool)$class) {
+        if (!(bool) $class) {
             $this->error('Empty name given. Are you running a test?');
+
             return false;
         }
 
         $target = $this->getTargetFile($class);
 
-        if($this->classOrFileExists($target, $class)) {
+        if ($this->classOrFileExists($target, $class)) {
             return false;
         }
 
@@ -46,17 +48,21 @@ abstract class MakeCommand extends SilverstripeCommand
     /**
      * @param string $target
      * @param string $class
+     *
      * @return bool
      */
     protected function classOrFileExists($target, $class)
     {
         if ($this->classExists($class)) {
-            $this->error('class ' . $class . ' already exists!');
+            $this->error('class '.$class.' already exists!');
+
             return true;
-        }elseif ($this->fileExists($class)) {
-            $this->error('file ' . str_replace(BASE_PATH, '', $target). ' already exists!');
+        } elseif ($this->fileExists($class)) {
+            $this->error('file '.str_replace(BASE_PATH, '', $target).' already exists!');
+
             return true;
         }
+
         return false;
     }
 
@@ -70,7 +76,7 @@ abstract class MakeCommand extends SilverstripeCommand
 
         file_put_contents($target, $this->buildClass($class));
 
-        $this->info($class . ' created successfully in ' . str_replace(BASE_PATH, '', $target));
+        $this->info($class.' created successfully in '.str_replace(BASE_PATH, '', $target));
     }
 
     protected function clearCache()
@@ -103,34 +109,35 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     public function getTargetDirectory()
     {
-        $class  = $this->getCommandClass();
-        $dirs   = (array)self::$default_dirs;
+        $class = $this->getCommandClass();
+        $dirs = (array) self::$default_dirs;
         $custom = $this->getTargetDirectoryByOptionOrConfig();
 
         // --dir=mymodule || MakeCommand.default_dirs = mymodule || MakeCommand.default_dirs = mymodule/somedir
         if (is_string($custom)) {
             $dirs = $this->setTargetDirectoriesByString($custom, $dirs);
-            if(is_string($dirs)) {
+            if (is_string($dirs)) {
                 return $dirs;
             }
         // MakeCommand.default_dirs = array()
         } elseif (is_array($custom)) {
-            $dirs = $this->mergeCustomDirectoriesWithDefault($custom, $dirs) ;
+            $dirs = $this->mergeCustomDirectoriesWithDefault($custom, $dirs);
         }
 
-        return isset($dirs[$class]) ? BASE_PATH . '/' . $dirs[$class] : '';
+        return isset($dirs[$class]) ? BASE_PATH.'/'.$dirs[$class] : '';
     }
 
     /**
      * @param string $customDir
-     * @param array $defaultDirs
+     * @param array  $defaultDirs
+     *
      * @return string|array
      */
     protected function setTargetDirectoriesByString($customDir, $defaultDirs)
     {
         // MakeCommand.default_dirs = mymodule/somedir
-        if(Str::contains($customDir, '/')) {
-            return BASE_PATH . '/' . $customDir;
+        if (Str::contains($customDir, '/')) {
+            return BASE_PATH.'/'.$customDir;
         }
 
         // MakeCommand.default_dirs = mymodule
@@ -144,32 +151,34 @@ abstract class MakeCommand extends SilverstripeCommand
     /**
      * @param array $customDirs
      * @param array $defaultDirs
+     *
      * @return array
      */
     protected function mergeCustomDirectoriesWithDefault($customDirs, $defaultDirs)
     {
-        foreach($customDirs as $key => $dir) {
-            if(is_string($key)) {
+        foreach ($customDirs as $key => $dir) {
+            if (is_string($key)) {
                 $defaultDirs[$key] = $dir;
             }
         }
+
         return $defaultDirs;
     }
 
     /**
-     * The absolute file path
+     * The absolute file path.
      *
      * @return string
      */
     public function getTargetFile($class)
     {
-        return $this->getTargetDirectory() . '/' . $class . '.php';
+        return $this->getTargetDirectory().'/'.$class.'.php';
     }
 
     /**
      * Gets the Classname to generate from the called class like
      * MakeDataObjectCommand => DataObject class
-     * MakeFormCommand       => Form class
+     * MakeFormCommand       => Form class.
      *
      * @return string
      */
@@ -184,11 +193,12 @@ abstract class MakeCommand extends SilverstripeCommand
 
     /**
      * @throws InvalidArgumentException
+     *
      * @return array
      */
     protected function getTargetDirectoryByOptionOrConfig()
     {
-        if($this->option('dir')) {
+        if ($this->option('dir')) {
             return $this->option('dir');
         }
 
@@ -219,7 +229,7 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     protected function getConsoleStubPath($commandClass)
     {
-        return BASE_PATH . '/console/stubs/' . $commandClass . '.php.stub';
+        return BASE_PATH.'/console/stubs/'.$commandClass.'.php.stub';
     }
 
     /**
@@ -227,7 +237,7 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     protected function getMySiteStubPath($commandClass)
     {
-        return BASE_PATH . '/mysite/stubs/' . $commandClass . '.php.stub';
+        return BASE_PATH.'/mysite/stubs/'.$commandClass.'.php.stub';
     }
 
     /**
@@ -238,13 +248,15 @@ abstract class MakeCommand extends SilverstripeCommand
         $stubDir = Config::inst()->get('MakeCommand', 'stub_dir');
 
         if ($stubDir) {
-            return BASE_PATH . '/' . $stubDir . '/' . $commandClass . '.php.stub';
+            return BASE_PATH.'/'.$stubDir.'/'.$commandClass.'.php.stub';
         }
+
         return '';
     }
 
     /**
      * @param $class
+     *
      * @return bool
      */
     protected function fileExists($class)
@@ -254,6 +266,7 @@ abstract class MakeCommand extends SilverstripeCommand
 
     /**
      * @param $class
+     *
      * @return bool
      */
     protected function classExists($class)
@@ -273,14 +286,15 @@ abstract class MakeCommand extends SilverstripeCommand
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
 
-            $this->info('directory ' . str_replace(BASE_PATH, '', $path) . ' created');
+            $this->info('directory '.str_replace(BASE_PATH, '', $path).' created');
         }
     }
 
     /**
      * Replace the class name for the given stub.
      *
-     * @param  string  $class
+     * @param string $class
+     *
      * @return string
      */
     protected function buildClass($class)
@@ -302,7 +316,7 @@ abstract class MakeCommand extends SilverstripeCommand
     {
         return [
             ['clearcache', 'c', InputOption::VALUE_NONE, 'Clear the cache after adding the class'],
-            ['dir', 'd', InputOption::VALUE_OPTIONAL, 'Set the directory to write the file to']
+            ['dir', 'd', InputOption::VALUE_OPTIONAL, 'Set the directory to write the file to'],
         ];
     }
 

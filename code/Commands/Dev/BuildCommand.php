@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class BuildCommand
+ * Class BuildCommand.
  */
 class BuildCommand extends SilverstripeCommand
 {
@@ -27,6 +27,5 @@ class BuildCommand extends SilverstripeCommand
         $da->doBuild();
         $this->info(ob_get_contents());
         ob_get_clean();
-
     }
 }

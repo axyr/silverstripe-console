@@ -5,7 +5,6 @@ use Symfony\Component\Console\Input\InputOption;
 
 class MakeControllerCommand extends MakeCommand
 {
-
     /**
      * @var string
      */

@@ -15,6 +15,5 @@ class ListConfigCommand extends SilverstripeCommand
 
     public function fire()
     {
-
     }
 }
