@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class ConsoleForm
+ * Class ConsoleForm.
  */
 class ConsoleForm extends Form
 {
@@ -12,14 +12,14 @@ class ConsoleForm extends Form
 
     /**
      * @param Controller $controller
-     * @param string $name
+     * @param string     $name
      */
     public function __construct(Controller $controller, $name)
     {
         $this->controller = $controller;
 
-        $fields    = $this->getCustomFields();
-        $actions   = $this->getCustomActions();
+        $fields = $this->getCustomFields();
+        $actions = $this->getCustomActions();
         $validator = $this->getCustomValidator($fields);
 
         parent::__construct($controller, $name, $fields, $actions, $validator);
@@ -28,8 +28,8 @@ class ConsoleForm extends Form
     }
 
     /**
-     * @param array $data
-     * @param ConsoleForm $form
+     * @param array          $data
+     * @param ConsoleForm    $form
      * @param SS_HTTPRequest $request
      */
     public function submitForm($data, ConsoleForm $form, SS_HTTPRequest $request)
@@ -73,18 +73,18 @@ class ConsoleForm extends Form
     }
 
     /**
-     * Add required stars to field labels
+     * Add required stars to field labels.
      *
-     * @param array $required
+     * @param array     $required
      * @param FieldList $fields
      */
     protected function setRequiredFieldsLabels($required, FieldList $fields)
     {
-        foreach ((array)$required as $req) {
+        foreach ((array) $required as $req) {
             $field = $fields->dataFieldByName($req);
             if ($field && $title = trim($field->Title())) {
                 $this->setCustomValidationMessage($field, $title);
-                $field->setTitle($title . ' *');
+                $field->setTitle($title.' *');
             }
         }
     }
@@ -98,9 +98,8 @@ class ConsoleForm extends Form
     protected function setCustomValidationMessage(FormField $field, $title)
     {
         if (!$field->getCustomValidationMessage()) {
-            $message = strip_tags($title) . ' ' . _t('Site.IsRequired', ' is required');
+            $message = strip_tags($title).' '._t('Site.IsRequired', ' is required');
             $field->setCustomValidationMessage($message);
         }
     }
-
 }

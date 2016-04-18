@@ -19,7 +19,7 @@ class ConsoleController extends Controller
      */
     private static $allowed_actions = [
         'publish',
-        'ConsoleForm'
+        'ConsoleForm',
     ];
 
     /**
@@ -36,15 +36,16 @@ class ConsoleController extends Controller
 
     public function index(SS_HTTPRequest $request)
     {
-        /**
+        /*
          * Lets be clear when calling commands
          */
         ini_set('display_errors', 1);
 
-        if(!Director::is_cli()) {
-            if(!Permission::check("ADMIN")) {
+        if (!Director::is_cli()) {
+            if (!Permission::check('ADMIN')) {
                 return Security::permissionFailure();
             }
+
             return $this->callFromBrowser($request);
         }
 
@@ -61,9 +62,9 @@ class ConsoleController extends Controller
 
     protected function callFromBrowser(SS_HTTPRequest $request)
     {
-        $input = new ArrayInput(array(
-            'command' => $request->param('ID')
-        ));
+        $input = new ArrayInput([
+            'command' => $request->param('ID'),
+        ]);
 
         $output = new BufferedOutput(
             OutputInterface::VERBOSITY_NORMAL,
@@ -77,6 +78,7 @@ class ConsoleController extends Controller
 
         return ['ConsoleOutput' => $converter->convert($content)];
     }
+
     /**
      * @return ConsoleForm
      */

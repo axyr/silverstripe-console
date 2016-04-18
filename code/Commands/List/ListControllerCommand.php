@@ -20,12 +20,14 @@ class ListControllerCommand extends AbstractListCommand
 
     /**
      * @param $className
+     *
      * @return array
      */
     protected function getParentClasses($className)
     {
         // removes $className and Controller => RequestHandler => ViewableData => Object
         $parentClasses = array_slice(parent::getParentClasses($className), 4, -1);
+
         return array_reverse($parentClasses);
     }
 }

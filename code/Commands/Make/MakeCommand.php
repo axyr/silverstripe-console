@@ -309,7 +309,7 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     protected function getNameInput()
     {
-        return (string)$this->argument('name');
+        return (string) $this->argument('name');
     }
 
     protected function getOptions()
