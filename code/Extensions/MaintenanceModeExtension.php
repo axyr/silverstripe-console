@@ -9,14 +9,12 @@
  */
 class MaintenanceModeExtension extends Extension
 {
-
     /**
      * @throws SS_HTTPResponse_Exception
      */
     public function onBeforeInit()
     {
-        if($this->isDownForMaintenance() && !$this->clientIpIsAllowedInMaintenanceMode())
-        {
+        if ($this->isDownForMaintenance() && !$this->clientIpIsAllowedInMaintenanceMode()) {
             $this->throw503();
         }
     }
@@ -38,9 +36,9 @@ class MaintenanceModeExtension extends Extension
      */
     protected function throw503()
     {
-        $message   = 'Website is down for maintenance';
+        $message = 'Website is down for maintenance';
         $errorFile = $this->get503File();
-        $content   = is_file($errorFile) ? file_get_contents($errorFile) : '<h1>'.$message.'</h1>';
+        $content = is_file($errorFile) ? file_get_contents($errorFile) : '<h1>'.$message.'</h1>';
 
         throw new SS_HTTPResponse_Exception(new SS_HTTPResponse($content, 503, $message));
     }
@@ -50,7 +48,7 @@ class MaintenanceModeExtension extends Extension
      */
     protected function get503File()
     {
-        $custom = BASE_PATH.(string)Config::inst()->get('MaintenanceMode', 'file');
+        $custom = BASE_PATH.(string) Config::inst()->get('MaintenanceMode', 'file');
 
         return is_file($custom) ? $custom : BASE_PATH.'/assets/error-503.html';
     }
@@ -60,10 +58,10 @@ class MaintenanceModeExtension extends Extension
      */
     protected function clientIpIsAllowedInMaintenanceMode()
     {
-        $ip      = $this->getClientIp();
+        $ip = $this->getClientIp();
         $allowed = $this->getAllowedIpAddresses();
 
-        return (bool)$allowed && (bool)$ip && in_array($ip, $allowed);
+        return (bool) $allowed && (bool) $ip && in_array($ip, $allowed);
     }
 
     /**
@@ -73,7 +71,7 @@ class MaintenanceModeExtension extends Extension
     {
         $request = $this->owner->getRequest();
 
-        return (bool)$request ? $request->getIP() : false;
+        return (bool) $request ? $request->getIP() : false;
     }
 
     /**
@@ -81,6 +79,6 @@ class MaintenanceModeExtension extends Extension
      */
     protected function getAllowedIpAddresses()
     {
-        return (array)Config::inst()->get('MaintenanceMode', 'allowed_ips');
+        return (array) Config::inst()->get('MaintenanceMode', 'allowed_ips');
     }
 }
