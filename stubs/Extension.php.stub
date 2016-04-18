@@ -1,11 +1,14 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  */
 class DummyClass extends Extension
 {
-    private static $allowed_actions = null;
+    /**
+     * @var array
+     */
+    private static $allowed_actions = array();
 
     public function onBeforeInit()
     {

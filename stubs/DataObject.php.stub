@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  */
 class DummyClass extends DataObject
 {
@@ -15,6 +15,9 @@ class DummyClass extends DataObject
      */
     private static $has_one = array();
 
+    /**
+     * @return FieldList
+     */
     public function getCMSFields()
     {
         $fields = parent::getCMSFields();

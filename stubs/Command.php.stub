@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  */
 class DummyClass extends SilverstripeCommand
 {
@@ -20,7 +20,7 @@ class DummyClass extends SilverstripeCommand
     protected $description = '';
 
     /**
-     * Fire the command
+     * Fire the command.
      */
     public function fire()
     {

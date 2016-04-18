@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  */
 class DummyClass extends Form
 {

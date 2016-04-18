@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  */
 class DummyClass extends Page
 {
@@ -9,13 +9,17 @@ class DummyClass extends Page
 }
 
 /**
- * Class DummyClass_Controller
+ * Class DummyClass_Controller.
  */
 class DummyClass_Controller extends Page_Controller
 {
+    /**
+     * @var array
+     */
+    private static $allowed_actions = array();
+
     public function init()
     {
         parent::init();
     }
-
 }

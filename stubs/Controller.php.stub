@@ -1,10 +1,13 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  */
 class DummyClass extends Controller
 {
+    /**
+     * @var array
+     */
     private static $allowed_actions = array();
 
     public function init()

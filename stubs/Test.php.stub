@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class DummyClass.
  *
  * @mixin PHPUnit_Framework_TestCase
  */
@@ -14,7 +14,8 @@ class DummyClass extends SapphireTest
 
     public function testTrue()
     {
+        // TODO : make test pass...
         $this->assertTrue(false);
     }
-    
+
 }
