@@ -1,5 +1,7 @@
 #Member Operations
 
+##Adding a new Member to the database
+
 You can simply create new Member with:
 
 ```
@@ -15,3 +17,13 @@ The FirstName will be set with whatever you set before the @ sign.
 --firstname / -f : Optional FirstName. Default to name@ part of the emailaddress.
 --surname / -s : Optional Surname.
 --lastname / -l : Alias for Surname.
+
+##Sending a reset password email
+
+You can send a password reset email with:
+
+```
+$php supersake security:resetpassword some@email.com
+```
+
+This will send an email with the reset link.
