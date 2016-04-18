@@ -18,7 +18,7 @@ abstract class AbstractListCommand extends SilverstripeCommand
      */
     protected function getTableData()
     {
-        $classes = (array)ClassInfo::subclassesFor($this->getClassName());
+        $classes = (array) ClassInfo::subclassesFor($this->getClassName());
 
         unset($classes[$this->getClassName()]);
 
@@ -26,7 +26,7 @@ abstract class AbstractListCommand extends SilverstripeCommand
             $classes[$class] = [
                 $class,
                 implode("\n", (array) $this->getExtensions($class)),
-                implode(" => ", (array) $this->getParentClasses($class)),
+                implode(' => ', (array) $this->getParentClasses($class)),
                 $this->getModule($class),
             ];
         }
@@ -35,7 +35,6 @@ abstract class AbstractListCommand extends SilverstripeCommand
 
         return $classes;
     }
-
 
     /**
      * @return array
@@ -47,15 +46,17 @@ abstract class AbstractListCommand extends SilverstripeCommand
 
     /**
      * @param $className
+     *
      * @return array
      */
     protected function getExtensions($className)
     {
-        return (array)Config::inst()->get($className, 'extensions', Config::UNINHERITED);
+        return (array) Config::inst()->get($className, 'extensions', Config::UNINHERITED);
     }
 
     /**
      * @param string $className
+     *
      * @return string
      */
     protected function getModule($className)
@@ -63,14 +64,15 @@ abstract class AbstractListCommand extends SilverstripeCommand
         $reflection = new \ReflectionClass($className);
         $file = $reflection->getFileName();
 
-        $path  = str_replace([BASE_PATH.'/'], '', $file);
+        $path = str_replace([BASE_PATH.'/'], '', $file);
         $parts = explode(DIRECTORY_SEPARATOR, $path);
 
-        return (string)array_shift($parts);
+        return (string) array_shift($parts);
     }
 
     /**
      * @param string $className
+     *
      * @return array
      */
     protected function getParentClasses($className)
