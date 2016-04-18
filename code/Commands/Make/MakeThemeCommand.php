@@ -1,7 +1,7 @@
 <?php
 
 
-class MakeThemeCommand extends MakeCommand
+class MakeThemeCommand extends AbstractMakeCommand
 {
     /**
      * @var string

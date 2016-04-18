@@ -1,7 +1,7 @@
 <?php
 
 
-class MakeDataObjectCommand extends MakeCommand
+class MakeDataObjectCommand extends AbstractMakeCommand
 {
     /**
      * @var string

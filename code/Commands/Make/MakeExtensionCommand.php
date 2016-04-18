@@ -1,7 +1,7 @@
 <?php
 
 
-class MakeExtensionCommand extends MakeCommand
+class MakeExtensionCommand extends AbstractMakeCommand
 {
     /**
      * @var string

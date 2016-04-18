@@ -3,7 +3,7 @@
 /**
  * Class MakeTestCommand.
  */
-class MakeTestCommand extends MakeCommand
+class MakeTestCommand extends AbstractMakeCommand
 {
     /**
      * The console command name.

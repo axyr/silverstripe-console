@@ -4,7 +4,7 @@
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-abstract class MakeCommand extends SilverstripeCommand
+abstract class AbstractMakeCommand extends SilverstripeCommand
 {
     /**
      * @config

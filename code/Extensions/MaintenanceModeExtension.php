@@ -63,7 +63,7 @@ class MaintenanceModeExtension extends Extension
         $ip      = $this->getClientIp();
         $allowed = $this->getAllowedIpAddresses();
 
-        return (bool)$allowed && $ip && in_array($ip, $allowed);
+        return (bool)$allowed && (bool)$ip && in_array($ip, $allowed);
     }
 
     /**

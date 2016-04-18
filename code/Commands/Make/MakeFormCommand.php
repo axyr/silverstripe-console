@@ -3,7 +3,7 @@
 
 use Symfony\Component\Console\Input\InputOption;
 
-class MakeFormCommand extends MakeCommand
+class MakeFormCommand extends AbstractMakeCommand
 {
     /**
      * @var string
