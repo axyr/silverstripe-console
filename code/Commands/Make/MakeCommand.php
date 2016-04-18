@@ -206,47 +206,47 @@ abstract class MakeCommand extends SilverstripeCommand
     /**
      * @return string
      */
-    protected function getStubFilePath($commandClass)
+    protected function getStubFilePath($stubName)
     {
-        $customStubFilePath = $this->getCustomStubPath($commandClass);
+        $customStubFilePath = $this->getCustomStubPath($stubName);
         if (is_file($customStubFilePath)) {
             return $customStubFilePath;
         }
 
-        $mysiteStubFilePath = $this->getCustomStubPath($commandClass);
+        $mysiteStubFilePath = $this->getCustomStubPath($stubName);
 
         if (is_file($mysiteStubFilePath)) {
             return $mysiteStubFilePath;
         }
 
-        return $this->getConsoleStubPath($commandClass);
+        return $this->getConsoleStubPath($stubName);
     }
 
     /**
      * @return string
      */
-    protected function getConsoleStubPath($commandClass)
+    protected function getConsoleStubPath($stubName)
     {
-        return BASE_PATH.'/console/stubs/'.$commandClass.'.php.stub';
+        return BASE_PATH.'/console/stubs/'.$stubName.'.php.stub';
     }
 
     /**
      * @return string
      */
-    protected function getMySiteStubPath($commandClass)
+    protected function getMySiteStubPath($stubName)
     {
-        return BASE_PATH.'/mysite/stubs/'.$commandClass.'.php.stub';
+        return BASE_PATH.'/mysite/stubs/'.$stubName.'.php.stub';
     }
 
     /**
      * @return string
      */
-    protected function getCustomStubPath($commandClass)
+    protected function getCustomStubPath($stubName)
     {
         $stubDir = Config::inst()->get('MakeCommand', 'stub_dir');
 
         if ($stubDir) {
-            return BASE_PATH.'/'.$stubDir.'/'.$commandClass.'.php.stub';
+            return BASE_PATH.'/'.$stubDir.'/'.$stubName.'.php.stub';
         }
 
         return '';
@@ -272,7 +272,7 @@ abstract class MakeCommand extends SilverstripeCommand
         $loader = SS_ClassLoader::instance();
         $exists = $loader->classExists($class);
         $path = $loader->getItemPath($class);
-        
+
         return $exists && is_file($path);
     }
 
@@ -315,7 +315,7 @@ abstract class MakeCommand extends SilverstripeCommand
     protected function getOptions()
     {
         return [
-            ['clearcache', 'c', InputOption::VALUE_NONE, 'Clear the cache after adding the class'],
+            ['clearcache', 'cc', InputOption::VALUE_NONE, 'Clear the cache after adding the class'],
             ['dir', 'd', InputOption::VALUE_OPTIONAL, 'Set the directory to write the file to'],
         ];
     }
