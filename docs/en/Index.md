@@ -15,11 +15,16 @@ http://symfony.com/doc/current/components/console/introduction.html
 If you know Laravel or Symfony, working with 'supersake' is a breeze.
 If not, learning this command line tool, will let you work on the command line with Laravel and Symfony much easier.
 
-Ain't that what PSR is all about?
+
+###[Make Commands](Make.md)
+
+###[Maintenance Mode](MaintenanceMode.md)
+###[Member Operations](MemberOperations.md)
+###[Tasks](Tasks.md)
+
+###[Extending](Extending.md)
 
 ###[API Documentation](https://axyr.github.io/ideannotator)
-
-###[Installation](Installation.md)
 
 ###[Code of Conduct](CodeOfConduct.md)
 

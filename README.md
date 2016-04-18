@@ -68,11 +68,7 @@ $ php supersake list:controller
 
 ## Further information
 
-[Make Commands](docs/en/Make.md)
-
-[Maintenance Mode](docs/en/MaintenanceMode.md)
-
-[Extending](docs/en/Extending.md)
+[Documentation](docs/en/Index.md)
 
 For the Code of Conduct, see [CodeOfConduct](docs/en/CodeOfConduct.md)
 
