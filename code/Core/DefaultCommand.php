@@ -34,6 +34,8 @@ class DefaultCommand extends ListCommand
             $output->writeln('<comment>Or add this to the <fileExtensions allowUnlisted="true"> section of your web.config file if you are running on iis</comment>');
             $output->writeln($checker->webconfigContent());
             $output->writeln("\n");
+            $output->writeln('<comment>Or run $ `php supersake protect` to write these lines to the files</comment>');
+            $output->writeln("\n");
         }
     }
 
