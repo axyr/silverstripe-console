@@ -1,16 +1,16 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class TestMyCommand
  */
-class DummyClass extends SilverstripeCommand
+class TestMyCommand extends SilverstripeCommand
 {
     /**
      * The console command name.
      *
      * @var string
      */
-    protected $name = 'CommandName:fire';
+    protected $name = 'testmycommand:fire';
 
     /**
      * The console command description.
@@ -24,6 +24,6 @@ class DummyClass extends SilverstripeCommand
      */
     public function fire()
     {
-        $this->info('DummyClass fired');
+        $this->info('TestMyCommand fired');
     }
 }

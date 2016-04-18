@@ -84,7 +84,7 @@ abstract class MakeCommand extends SilverstripeCommand
         if ($this->option('clearcache')) {
             $this->call('cache:clear');
         } else {
-            $this->warn('to use the class, please run cache:clear');
+            $this->warn('to use the class, please run cache:clear or add the --clearcache next time');
         }
     }
 
@@ -269,7 +269,11 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     protected function classExists($class)
     {
-        return ClassInfo::exists($class);
+        $loader = SS_ClassLoader::instance();
+        $exists = $loader->classExists($class);
+        $path = $loader->getItemPath($class);
+        
+        return $exists && is_file($path);
     }
 
     /**

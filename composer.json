@@ -20,7 +20,8 @@
     "require": {
         "silverstripe/framework": ">=3.1.0",
         "silverstripe/cms": ">=3.1.0",
-        "symfony/console": ">=3.0.0"
+        "symfony/console": ">=3.0.0",
+        "sensiolabs/ansi-to-html": "^1.1"
     },
     "require-dev": {
         "phpunit/PHPUnit": "~3.7@stable"

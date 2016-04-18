@@ -4,21 +4,37 @@
 class ProtectSuperSakeCommand extends SilverstripeCommand
 {
     /**
-     * The console command name.
-     *
      * @var string
      */
-    protected $name = 'protect';
+    protected $name = 'console:protect';
 
     /**
-     * The console command description.
-     *
      * @var string
      */
-    protected $description = 'PRevent direct file access by .htaccess and web.config';
+    protected $description = 'Prevent direct file access by .htaccess and web.config';
 
     public function fire()
     {
         // $this->writeHtAccessFile();
+    }
+
+    /**
+     * protect the supersake file with htaccess.
+     */
+    protected function writehtaccess()
+    {
+        $content = '# Deny access to supersake
+<Files supersake>
+	Order allow,deny
+	Deny from all
+</Files>';
+    }
+
+    /**
+     * protect the supersake file with web.config.
+     */
+    public function writewebconfig()
+    {
+        //<add fileExtension="supersake" allowed="false"/>
     }
 }

@@ -133,17 +133,33 @@ class SilverstripeApplication extends SymfonyApplication
         /*
          * Why does this not work
          */
-        ///$commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
+        //$commands = ClassInfo::subclassesFor('SilverstripeCommand'); //var_dump($commands);exit();
 
-        // This works, but does not load custom Commands
-        $commands = ClassInfo::classes_for_folder(BASE_PATH.'/console/code/');
+        $classes = SS_ClassLoader::instance()->getManifest()->getClasses();
 
         /** @var SilverstripeCommand $command */
-        foreach ($commands as $command) {
-            $reflection = new ReflectionClass($command);
+        foreach ($classes as $class => $path) {
+            $this->addCommandOrSilentlyFail($class, $path);
+        }
+    }
+
+    /**
+     * When developing and renaming or removing a Command, the manifest is not always updated.
+     *
+     * We don't want file_not_found or class_does_not_exists error for commands,
+     * because that prevente running commands like cache:clear etc.
+     *
+     * @param string $class
+     * @param string $path
+     */
+    protected function addCommandOrSilentlyFail($class, $path)
+    {
+        if(is_file($path) && class_exists($class)) {
+            $reflection = new ReflectionClass($class);
             if (!$reflection->isAbstract() && $reflection->isSubclassOf('SilverstripeCommand')) {
-                $this->add(new $command());
+                $this->add(new $class());
             }
         }
     }
+
 }

@@ -20,8 +20,8 @@ class MakeFormCommand extends MakeCommand
      */
     protected function getOptions()
     {
-        return [
-            ['template', 't', InputOption::VALUE_NONE, 'Create a custom template for this Form'],
-        ];
+        $options = parent::getOptions();
+        $options[] = ['template', 't', InputOption::VALUE_NONE, 'Create a custom template for this Form'];
+        return $options;
     }
 }

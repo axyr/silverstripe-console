@@ -1,7 +1,12 @@
 <?php
 
+use SensioLabs\AnsiConverter\AnsiToHtmlConverter;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class ConsoleController
@@ -17,59 +22,58 @@ class ConsoleController extends Controller
     ];
 
     /**
-     * @var Symfony\Component\Console\Application
+     * @var SilverstripeApplication
      */
     protected $application;
 
-    public function index()
+    public function init()
     {
         parent::init();
-        if (!Director::is_cli()) {
-            $this->httpError(404);
-        }
 
         $this->application = new SilverstripeApplication();
+    }
 
+    public function index(SS_HTTPRequest $request)
+    {
+        /**
+         * Lets be clear when calling commands
+         */
+        ini_set('display_errors', 1);
+
+        if(!Director::is_cli()) {
+            if(!Permission::check("ADMIN")) {
+                return Security::permissionFailure();
+            }
+            return $this->callFromBrowser($request);
+        }
+
+        return $this->callFromConsole();
+    }
+
+    protected function callFromConsole()
+    {
         // remove the framework/cli-script.php argument
         array_shift($_SERVER['argv']);
 
-        $this->application->run(new ArgvInput($_SERVER['argv']));
+        $this->application->run(new ArgvInput($_SERVER['argv']), new ConsoleOutput());
     }
 
-    public function publish()
+    protected function callFromBrowser(SS_HTTPRequest $request)
     {
-        if (Director::is_cli()) {
-            $this->writeSuperSakeFileToWebRoot();
-            $this->writehtaccess();
-            $this->writewebconfig();
-        }
-    }
+        $input = new ArrayInput(array(
+            'command' => $request->param('ID')
+        ));
 
-    protected function writeSuperSakeFileToWebRoot()
-    {
-        file_put_contents(
-            BASE_PATH.'/supersake',
-            file_get_contents(BASE_PATH.'/console/publish/supersake')
+        $output = new BufferedOutput(
+            OutputInterface::VERBOSITY_NORMAL,
+            true // true for decorated
         );
-    }
+        $this->application->run($input, $output);
 
-    /**
-     * protect the supersake file with htaccess.
-     */
-    protected function writehtaccess()
-    {
-        $content = '# Deny access to supersake
-<Files supersake>
-	Order allow,deny
-	Deny from all
-</Files>';
-    }
-
-    /**
-     * protect the supersake file with web.config.
-     */
-    public function writewebconfig()
-    {
-        //<add fileExtension="supersake" allowed="false"/>
+        // return the output
+        $converter = new AnsiToHtmlConverter();
+        $content = $output->fetch();
+        
+        return ['ConsoleOutput' => $converter->convert($content)];
     }
 }
