@@ -83,12 +83,23 @@ class ConsoleForm extends Form
         foreach ((array)$required as $req) {
             $field = $fields->dataFieldByName($req);
             if ($field && $title = trim($field->Title())) {
-                if (!$field->getCustomValidationMessage()) {
-                    $message = strip_tags($title) . ' ' . _t('Site.IsRequired', ' is required');
-                    $field->setCustomValidationMessage($message);
-                }
+                $this->setCustomValidationMessage($field, $title);
                 $field->setTitle($title . ' *');
             }
+        }
+    }
+
+    /**
+     * Add is $Field is required message.
+     *
+     * @param FormField $field
+     * @param $title
+     */
+    protected function setCustomValidationMessage(FormField $field, $title)
+    {
+        if (!$field->getCustomValidationMessage()) {
+            $message = strip_tags($title) . ' ' . _t('Site.IsRequired', ' is required');
+            $field->setCustomValidationMessage($message);
         }
     }
 
