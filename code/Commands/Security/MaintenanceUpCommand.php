@@ -15,7 +15,7 @@ class MaintenanceUpCommand extends SilverstripeCommand
 
     public function fire()
     {
-        @unlink(BASE_PATH.'/framework/down');
+        @unlink(BASE_PATH.'/mysite/down');
 
         $this->info('Application is now live.');
     }

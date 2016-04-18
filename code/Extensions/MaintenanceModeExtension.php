@@ -7,7 +7,7 @@
  */
 class MaintenanceModeExtension extends Extension
 {
-    
+
     /**
      * @throws SS_HTTPResponse_Exception
      */
@@ -15,7 +15,8 @@ class MaintenanceModeExtension extends Extension
     {
         if($this->isDownForMaintenance())
         {
-            $this->owner->httpError(503, 'Website is down for maintenance');
+            $message  = 'Website is down for maintenance';
+            return $this->owner->httpError(503, $message);
         }
     }
 
@@ -24,6 +25,6 @@ class MaintenanceModeExtension extends Extension
      */
     public function isDownForMaintenance()
     {
-        return file_exists(BASE_PATH.'/framework/down');
+        return file_exists(BASE_PATH.'/mysite/down');
     }
 }

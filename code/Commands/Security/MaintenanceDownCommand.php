@@ -15,7 +15,7 @@ class MaintenanceDownCommand extends SilverstripeCommand
 
     public function fire()
     {
-        touch(BASE_PATH.'/framework/down');
+        touch(BASE_PATH.'/mysite/down');
 
         $this->comment('Application is now in maintenance mode.');
     }

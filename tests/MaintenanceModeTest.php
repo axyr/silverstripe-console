@@ -29,7 +29,7 @@ class MaintenanceModeTest extends SapphireTest
         $this->application->add(new MaintenanceDownCommand());
         $this->application->add(new MaintenanceUpCommand());
 
-        $this->filePath = BASE_PATH.'/framework/down';
+        $this->filePath = BASE_PATH.'/mysite/down';
     }
 
     public function testMaintenanceDownCommand()
