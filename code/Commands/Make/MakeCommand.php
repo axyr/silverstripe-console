@@ -192,9 +192,7 @@ abstract class MakeCommand extends SilverstripeCommand
     }
 
     /**
-     * @throws InvalidArgumentException
-     *
-     * @return array
+     * @return array|string
      */
     protected function getTargetDirectoryByOptionOrConfig()
     {
@@ -276,8 +274,6 @@ abstract class MakeCommand extends SilverstripeCommand
 
     /**
      * Build the directory for the class if necessary.
-     *
-     * @return string
      */
     protected function makeDirectory()
     {
@@ -309,7 +305,7 @@ abstract class MakeCommand extends SilverstripeCommand
      */
     protected function getNameInput()
     {
-        return $this->argument('name');
+        return (string)$this->argument('name');
     }
 
     protected function getOptions()
