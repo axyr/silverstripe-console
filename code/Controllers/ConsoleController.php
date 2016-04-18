@@ -19,6 +19,7 @@ class ConsoleController extends Controller
      */
     private static $allowed_actions = [
         'publish',
+        'ConsoleForm'
     ];
 
     /**
@@ -73,7 +74,14 @@ class ConsoleController extends Controller
         // return the output
         $converter = new AnsiToHtmlConverter();
         $content = $output->fetch();
-        
+
         return ['ConsoleOutput' => $converter->convert($content)];
+    }
+    /**
+     * @return ConsoleForm
+     */
+    public function ConsoleForm()
+    {
+        return new ConsoleForm($this, 'ConsoleForm');
     }
 }

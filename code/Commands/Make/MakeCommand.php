@@ -315,7 +315,7 @@ abstract class MakeCommand extends SilverstripeCommand
     protected function getOptions()
     {
         return [
-            ['clearcache', 'cc', InputOption::VALUE_NONE, 'Clear the cache after adding the class'],
+            ['clearcache', 'c', InputOption::VALUE_NONE, 'Clear the cache after adding the class'],
             ['dir', 'd', InputOption::VALUE_OPTIONAL, 'Set the directory to write the file to'],
         ];
     }

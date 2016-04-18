@@ -1,0 +1,16 @@
+
+    /**
+     * @return DummyClass
+     */
+    public function DummyClass()
+    {
+        return new DummyClass($this, 'DummyClass');
+    }
+
+    /**
+     * @return array
+     */
+    public function thanks()
+    {
+        return array();
+    }

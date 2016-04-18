@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class DummyClass
+ * Class ConsoleForm
  */
-class DummyClass extends Form
+class ConsoleForm extends Form
 {
     /**
      * @var ContentController
@@ -23,18 +23,20 @@ class DummyClass extends Form
         $validator = $this->getCustomValidator($fields);
 
         parent::__construct($controller, $name, $fields, $actions, $validator);
+
+        $this->setFormAction('/console/'.$name);
     }
 
     /**
-     * @param $data
-     * @param DummyClass $form
+     * @param array $data
+     * @param ConsoleForm $form
      * @param SS_HTTPRequest $request
      */
-    public function submitForm($data, DummyClass $form, SS_HTTPRequest $request)
+    public function submitForm($data, ConsoleForm $form, SS_HTTPRequest $request)
     {
         //TODO : do something with data or form
 
-        return $this->controller->redirect($this->controller->Link('thanks'));
+        return $this->controller->redirect('/console/index/'.$data['Name']);
     }
 
     /**
