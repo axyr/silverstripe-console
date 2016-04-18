@@ -1,17 +1,26 @@
 #Make Commands
 
+These commands can be used to generate various Silverstripe Object classes
+
 Currently the following classes can be generated:
 - Command - make:command
 - Controller - make:controller
 - ControllerExtension - make:controllerextension
-- Dataobject - make:dataobject
 - DataExtension - make:dataextension
+- DataObject - make:dataobject
 - Extension - make:extension
 - Dataobject - make:dataobject
 - Page and Controller pair - make:page
-- Form - make:form 
+- Form - make:form
+- Test - make:test
 
-- Theme - make:theme @see make templates
+- Theme - make:theme
+
+The commands have different options, so be sure to check the help:
+
+```
+$ php supersake make:command --help
+```
 
 ##Stubs
 

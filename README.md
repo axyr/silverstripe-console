@@ -65,25 +65,11 @@ List DataObjects, Controllers, Config and more in a nice table style list with:
 $ php supersake list:controller
 ```
 
-## Quick start
-
-Install with 
-```
-$ composer require axyr/silverstripe-console
-```
-
-This will copy the file 'supersake' to your webroot.
-
-Run the following command to list all other commands you can execute:
-
-```
-$ php supersake
-```
-
 
 ## Further information
 
 [Make Commands](docs/en/Make.md)
+[Maintenance Mode](docs/en/MaintenanceMode.md)
 
 [Extending](docs/en/Extending.md)
 
