@@ -15,8 +15,7 @@ class MaintenanceModeExtension extends Extension
     {
         if($this->isDownForMaintenance())
         {
-            $message  = 'Website is down for maintenance';
-            return $this->owner->httpError(503, $message);
+            $this->respond503();
         }
     }
 
@@ -27,4 +26,26 @@ class MaintenanceModeExtension extends Extension
     {
         return file_exists(BASE_PATH.'/mysite/down');
     }
+
+    /**
+     * Somehow $this->owner->httpError puts a burden on de Database.
+     *
+     * Maybe not very Silverstripe'sch, but at least this works
+     */
+    protected function respond503()
+    {
+        $message = 'Website is down for maintenance';
+        $content = '<h1>'.$message.'</h1>';
+
+        header($message, true, 503);
+
+        $errorFile = BASE_PATH.'/assets/error-503.html';
+        if(is_file($errorFile)) {
+            $content = file_get_contents($errorFile);
+        }
+
+        echo $content;
+        exit();
+    }
+
 }
