@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Class MaintenanceModeExtension
+ * Class MaintenanceModeExtension.
+ *
+ * throw a 503 if mysite/down exists
  *
  * @property Controller $owner
  */
@@ -15,7 +17,7 @@ class MaintenanceModeExtension extends Extension
     {
         if($this->isDownForMaintenance())
         {
-            $this->respond503();
+            $this->throw503();
         }
     }
 
@@ -28,36 +30,28 @@ class MaintenanceModeExtension extends Extension
     }
 
     /**
-     * Somehow $this->owner->httpError puts a burden on de Database.
+     * Somehow $this->owner->httpError keeps the website spinning.
      *
      * Maybe not very Silverstripe'sch, but at least this works
+     *
+     * @throws SS_HTTPResponse_Exception
      */
-    protected function respond503()
+    protected function throw503()
     {
-        $message = 'Website is down for maintenance';
-        $content = '<h1>'.$message.'</h1>';
-
-        header($message, true, 503);
-
+        $message   = 'Website is down for maintenance';
         $errorFile = $this->get503File();
+        $content   = is_file($errorFile) ? file_get_contents($errorFile) : '<h1>'.$message.'</h1>';
 
-        if(is_file($errorFile)) {
-            $content = file_get_contents($errorFile);
-        }
-
-        echo $content;
-        exit();
+        throw new SS_HTTPResponse_Exception(new SS_HTTPResponse($content, 503, $message));
     }
 
+    /**
+     * @return string
+     */
     protected function get503File()
     {
         $custom = BASE_PATH.(string)Config::inst()->get('MaintenanceMode', 'file');
 
-        if(is_file($custom)) {
-            return $custom;
-        }
-
-        return BASE_PATH.'/assets/error-503.html';
+        return is_file($custom) ? $custom : BASE_PATH.'/assets/error-503.html';
     }
-
 }
