@@ -38,7 +38,6 @@ class MaintenanceModeTest extends SapphireTest
         $tester  = new CommandTester($command);
         $tester->execute(['command' => $command]);
 
-        $this->assertEquals('Application is now in maintenance mode.', trim($tester->getDisplay()));
         $this->assertTrue(is_file($this->filePath));
 
         @unlink($this->filePath);
@@ -50,7 +49,6 @@ class MaintenanceModeTest extends SapphireTest
         $tester  = new CommandTester($command);
 
         $tester->execute(['command' => $command]);
-        $this->assertEquals('Application is now live.', trim($tester->getDisplay()));
         $this->assertTrue(!is_file($this->filePath));
 
         @unlink($this->filePath);
