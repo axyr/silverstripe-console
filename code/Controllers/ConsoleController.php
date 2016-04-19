@@ -11,6 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ConsoleController
  * The Central Command Access Point and Bootstrapper.
+ *
  */
 class ConsoleController extends Controller
 {

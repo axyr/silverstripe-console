@@ -2,7 +2,7 @@
 
 /**
  * Class MaintenanceModeExtension.
- *
+ * 
  * throw a 503 if mysite/down exists
  *
  * @property Controller $owner

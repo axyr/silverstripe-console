@@ -23,7 +23,11 @@ class SilverstripeApplication extends SymfonyApplication
 
     public function __construct()
     {
-        parent::__construct();
+        $name = 'Silverstripe Console';
+
+        $version = '1';
+
+        parent::__construct($name, $version);
 
         $this->loadCommands();
 
