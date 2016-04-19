@@ -4,7 +4,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Tester\CommandTester;
 
 /**
- * Class MaintenanceModeExtensionTest
+ * Class MaintenanceModeExtensionTest.
  *
  * @mixin PHPUnit_Framework_TestCase
  */
@@ -35,14 +35,14 @@ class MaintenanceModeExtensionTest extends FunctionalTest
     public function testItThrowsA503WhenInMaintenanceMode()
     {
         $command = $this->application->find('down');
-        $tester  = new CommandTester($command);
+        $tester = new CommandTester($command);
         $tester->execute(['command' => $command]);
 
         $response = $this->get('/Security/login');
         $this->assertEquals(503, $response->getStatusCode());
-        
+
         $command = $this->application->find('up');
-        $tester  = new CommandTester($command);
+        $tester = new CommandTester($command);
         $tester->execute(['command' => $command]);
 
         $response = $this->get('/Security/login');
@@ -53,12 +53,12 @@ class MaintenanceModeExtensionTest extends FunctionalTest
 
     public function testItAllowsAnIpAddressDuringMaintenanceMode()
     {
-        Config::inst()->update('MaintenanceMode', 'allowed_ips', array(
-            '123.456.789.0'
-        ));
+        Config::inst()->update('MaintenanceMode', 'allowed_ips', [
+            '123.456.789.0',
+        ]);
 
         $command = $this->application->find('down');
-        $tester  = new CommandTester($command);
+        $tester = new CommandTester($command);
         $tester->execute(['command' => $command]);
 
         $response = $this->get('/Security/login');

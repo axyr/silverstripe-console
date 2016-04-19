@@ -24,7 +24,6 @@ If not, learning this command line tool, will let you work on the command line w
 
 ###[Extending](Extending.md)
 
-###[API Documentation](https://axyr.github.io/ideannotator)
 
 ###[Code of Conduct](CodeOfConduct.md)
 
