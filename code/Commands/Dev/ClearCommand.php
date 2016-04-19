@@ -8,7 +8,7 @@ class ClearCommand extends SilverstripeCommand
      *
      * @var string
      */
-    protected $name = 'cache:clear';
+    protected $name = 'clear:cache';
 
     /**
      * The console command description.
