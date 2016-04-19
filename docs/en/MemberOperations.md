@@ -23,7 +23,7 @@ The FirstName will be set with whatever you set before the @ sign.
 You can send a password reset email with:
 
 ```
-$php supersake security:resetpassword some@email.com
+$php supersake security:resetpassword email-or-id
 ```
 
 This will send an email with the reset link.
