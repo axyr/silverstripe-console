@@ -19,6 +19,8 @@ class ClearCommand extends SilverstripeCommand
 
     public function fire()
     {
+        $this->info('Used cache location: ' . TEMP_FOLDER);
+
         SS_ClassLoader::instance()->getManifest()->regenerate();
         $this->info('regenerated manifest!');
 

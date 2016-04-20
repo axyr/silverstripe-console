@@ -23,7 +23,7 @@ class BuildCommand extends SilverstripeCommand
     public function fire()
     {
         // make sure we have a fresh manifest
-        $this->call('cache:clear');
+        $this->call('clear:cache');
 
         /** @var DatabaseAdmin $da */
         $da = DatabaseAdmin::create();
