@@ -1,6 +1,8 @@
 # silverstripe-console (supersake)
 [![Scrutinizer](https://img.shields.io/scrutinizer/g/axyr/silverstripe-console.svg)](https://scrutinizer-ci.com/g/axyr/silverstripe-console/)
 [![Travis](https://img.shields.io/travis/axyr/silverstripe-console.svg)](https://travis-ci.org/axyr/silverstripe-console)
+[![Packagist](https://img.shields.io/packagist/dt/axyr/silverstripe-console.svg)](https://packagist.org/packages/axyr/silverstripe-console)
+[![Packagist](https://img.shields.io/packagist/v/axyr/silverstripe-console.svg)](https://packagist.org/packages/axyr/silverstripe-console)
 [![Packagist](https://img.shields.io/badge/unstable-dev--master-orange.svg)](https://packagist.org/packages/axyr/silverstripe-console)
 
 Interact with your Silverstripe application from the command line with supersake.
