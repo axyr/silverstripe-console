@@ -3,12 +3,6 @@
 [![Travis](https://img.shields.io/travis/axyr/silverstripe-console.svg)](https://travis-ci.org/axyr/silverstripe-console)
 [![Packagist](https://img.shields.io/badge/unstable-dev--master-orange.svg)](https://packagist.org/packages/axyr/silverstripe-console)
 
-# Very unstable and incomplete module.....
-
-# DO NOT USE THIS ON A LIVE ENVIRONMENT FOR NOW !!!
-
-This will likely not work as it should be... Hang on... 
-
 Interact with your Silverstripe application from the command line with supersake.
 
 ![Screenshot](https://raw.githubusercontent.com/axyr/silverstripe-console/master/images/console.png)
